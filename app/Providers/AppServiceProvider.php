@@ -53,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('rootMenu', $rootMenu);
         });
         view()->composer('*', function ($view) {
+            $companyId = null;
             if(Auth::check()){
                 $companyId = Company::value('id');
             }
