@@ -87,7 +87,7 @@ class Seeder
                     $className = "App\\" . $this->cleanFileName("/", $className, "\\");
                     return $className;
                 }else{
-                    return $this->cleanFileName("/", $item, "\\").".php";
+                    return "App\\" .$this->cleanFileName("/", $item, "\\");
 
                 }
             })
@@ -97,7 +97,6 @@ class Seeder
             ->filter(function ($item) {
                 return $item->implementsInterface(PermissionSeederContract::class);
             });
-
         return $classes;
     }
 
