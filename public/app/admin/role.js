@@ -16,7 +16,7 @@ $(function(){
         var roleName = $('#roleName');
         if(!roleName.val().trim()){
             swal.fire({
-                title:"Role name is required",
+                title:roleRequired,
                 text:'',
                 type: 'error',
             });

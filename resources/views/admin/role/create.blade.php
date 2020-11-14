@@ -3,8 +3,8 @@
 <div class="page-header">
     <nav class="breadcrumb-one" aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0);">Administration</a></li>
-            <li class="breadcrumb-item"><a href="{{route('roles.index')}}">Roles</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);">{{trans('menu.administration')}}</a></li>
+            <li class="breadcrumb-item"><a href="{{route('roles.index')}}">{{trans('menu.roles')}}</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0);"> {{trans('roles.create_new_role')}}</a></li>
             <li class="breadcrumb-item"></li>
         </ol>
@@ -36,7 +36,7 @@
                             <tr>
                                 <th style="width:350px;" class="align-middle">{{trans('roles.permission_name')}}</th>
                                 <th>{{trans('roles.permission_actions')}}
-                                    <button type="button" id="selectAll" data-selected="0" class="btn btn-info btn-sm mx-1">Select All</button>
+                                    <button type="button" id="selectAll" data-selected="0" class="btn btn-info btn-sm mx-1">{{trans('forms.select_all')}}</button>
                                 </th>
 
                             </tr>
@@ -82,6 +82,10 @@
 <link href="{{asset('assets/css/components/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 @push('scripts')
+    <script>
+        var roleRequired = "{{trans('roles.role_required')}}";
+    </script>
+
     <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>
     <script src="{{asset('plugins/sweetalerts/custom-sweetalert.js')}}"></script>
     <script src="{{ asset('app/admin/role.js') }}"></script>

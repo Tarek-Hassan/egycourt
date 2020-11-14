@@ -3,8 +3,8 @@
 <div class="page-header">
     <nav class="breadcrumb-one" aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0);">Administration</a></li>
-            <li class="breadcrumb-item"><a href="{{route('roles.index')}}">Roles</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);">{{trans('menu.administration')}}</a></li>
+            <li class="breadcrumb-item"><a href="{{route('roles.index')}}">{{trans('menu.roles')}}</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0);"> {{trans('forms.edit')}}</a></li>
             <li class="breadcrumb-item"></li>
         </ol>

@@ -8,4 +8,5 @@ return array (
   'search' => 'Search ...',
   'select' => 'Select ...',
   'update' => 'Update',
+  'select_all'=>'Select All'
 );

@@ -3,8 +3,8 @@
 <div class="page-header">
     <nav class="breadcrumb-one" aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0);">Administration</a></li>
-            <li class="breadcrumb-item"><a href="{{route('users.index')}}">Users</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);">{{trans('menu.administration')}}</a></li>
+            <li class="breadcrumb-item"><a href="{{route('users.index')}}">{{trans('menu.users')}}</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">{{trans('user.create_new')}}</a></li>
             <li class="breadcrumb-item"></li>
         </ol>
@@ -19,7 +19,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <div class="custom-file-container" data-upload-id="avatar">
-                        <label>{{trans('user.avatar')}} <span class="text-warning"> ( Max image size is 2Mb.) </span><a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image"></a></label>
+                        <label>{{trans('user.avatar')}} <span class="text-warning"> ( {{trans('user.max_image')}}) </span><a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image"></a></label>
                         <label class="custom-file-container__custom-file" >
                             <input type="file" class="custom-file-container__custom-file__custom-file-input" name="avatar" accept="image/*">
                             <input type="hidden" name="MAX_FILE_SIZE" disabled value="10485760" />
@@ -37,7 +37,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="userName">{{trans('user.user_name')}} * <span class="text-warning"> ( between 4 to 30 characters without spaces.) </span></label>
+                    <label for="userName">{{trans('user.user_name')}} * <span class="text-warning"> ( {{trans('user.username_rule')}}) </span></label>
                 <input type="text" class="form-control" id="userName" name="name" value="{{old('name')}}"
                         placeholder="{{trans('user.user_name')}}" autocomplete="off" autofocus maxlength="30">
                     @error('name')
@@ -60,7 +60,7 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="passwordInput">{{trans('login.password')}} * <span class="text-warning"> ( between 6 to 30 characters.) </span></label>
+                    <label for="passwordInput">{{trans('login.password')}} * <span class="text-warning"> ( {{trans('user.password_rule')}}) </span></label>
                     <input type="password" class="form-control" id="passwordInput" name="password" maxlength="30"
                         placeholder="{{trans('login.password')}}" autocomplete="off" >
                     @error('password')
@@ -102,7 +102,7 @@
             <div class="form-row">
 
                 <div class="form-group col-md-6">
-                    <label for="role">{{trans('user.role')}} <span class="text-warning"> (user will be disabled if no role is selected)</span></label>
+                    <label for="role">{{trans('user.role')}} <span class="text-warning"> ({{trans('user.role_rule')}})</span></label>
                     <select class="selectpicker show-tick form-control" id="role" data-live-search="true" name="role" title="{{trans('forms.select')}}">
                         @foreach ($roles as $item)
                         <option value="{{$item->id}}" {{$item->id == old('role') ? 'selected' :''}}>{{$item->name}}</option>
@@ -117,8 +117,8 @@
                 <div class="form-group col-md-6">
                     <label for="status">{{trans('user.status')}}</label>
                     <select class="selectpicker form-control"  name="is_active">
-                        <option value="1" {{ old('status') == "1" ? 'selected':'' }}>Enabled</option>
-                        <option value="0" {{ old('status') == "0" ? 'selected':'' }}>Disabled</option>
+                        <option value="1" {{ old('status') == "1" ? 'selected':'' }}>{{trans('user.enabled')}}</option>
+                        <option value="0" {{ old('status') == "0" ? 'selected':'' }}>{{trans('user.disabled')}}</option>
                     </select>
                     @error('status')
                     <div class="invalid-feedback">
@@ -162,6 +162,11 @@
     <script src="{{ asset('plugins/file-upload/file-upload-with-preview.min.js')}}"></script>
     <script src="{{ asset('app/admin/user.js') }}"></script>
     <script>
+        var alertTitle = "{{trans('user.alert_title')}}";
+        var alertCreateUser = "{{trans('user.alert_create_user')}}"
+        var createUser = "{{trans('user.create_new')}}";
+        var cancel = "{{trans('forms.cancel')}}";
+
         var firstUpload = new FileUploadWithPreview('avatar',{
             images: {
                     baseImage: '{{asset('assets/img/profile.png')}}',

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Menu;
 use App\Models\Master\Company;
 use App\Models\ViewModel\RootMenuNode;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -59,6 +60,14 @@ class AppServiceProvider extends ServiceProvider
                 $companyId = Company::value('id');
             }
             $view->with('companyId', $companyId);
+        });
+
+        view()->composer('layouts.app', function ($view) {
+            $dir = "";
+            if(App::isLocale('ar')){
+                $dir = "rtl/";
+            }
+            $view->with('dir', $dir);
         });
 
     }

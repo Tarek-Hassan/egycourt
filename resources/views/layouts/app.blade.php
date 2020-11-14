@@ -8,14 +8,14 @@
     <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon.ico')}}"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
-    <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset($dir.'bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('fontawesome/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('assets/css/plugins.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/css/tables/table-basic.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('assets/css/forms/theme-checkbox-radio.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('assets/css/elements/alert.css')}}" rel="stylesheet" type="text/css" >
-    <link href="{{asset('plugins/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" >
-    <link href="{{asset('assets/css/elements/breadcrumb.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset($dir.'assets/css/plugins.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset($dir.'assets/css/tables/table-basic.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset($dir.'assets/css/forms/theme-checkbox-radio.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset($dir.'assets/css/elements/alert.css')}}" rel="stylesheet" type="text/css" >
+    <link href="{{asset($dir.'plugins/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" >
+    <link href="{{asset($dir.'assets/css/elements/breadcrumb.css')}}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
@@ -119,12 +119,12 @@
     <!-- END MAIN CONTAINER -->
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="{{asset('assets/js/libs/jquery-3.1.1.min.js')}}"></script>
-    <script src="{{asset('bootstrap/js/popper.min.js')}}"></script>
-    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
-    <script src="{{asset('assets/js/app.js')}}"></script>
-    <script src="{{asset('plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
+    <script src="{{asset($dir.'assets/js/libs/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{asset($dir.'bootstrap/js/popper.min.js')}}"></script>
+    <script src="{{asset($dir.'bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset($dir.'plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+    <script src="{{asset($dir.'assets/js/app.js')}}"></script>
+    <script src="{{asset($dir.'plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
 
     <script>
         $(document).ready(function() {

@@ -6,11 +6,12 @@ $(function(){
 
         if(!roles.val() && !acceptWarning){
             swal({
-                title: 'User with no role will be disabled',
-                text: "Create User with no Role?",
+                title: alertTitle,
+                text: alertCreateUser,
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Create User',
+                confirmButtonText: createUser,
+                cancelButtonText: cancel,
                 padding: '2em'
               }).then(function(result) {
                 if (result.value) {

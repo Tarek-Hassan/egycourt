@@ -3,8 +3,8 @@
 <div class="page-header">
     <nav class="breadcrumb-one" aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0);">Administration</a></li>
-            <li class="breadcrumb-item active"><a href="{{route('users.index')}}">Users</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0);">{{trans('menu.administration')}}</a></li>
+            <li class="breadcrumb-item"><a href="{{route('users.index')}}">{{trans('menu.users')}}</a></li>
             <li class="breadcrumb-item"></li>
         </ol>
     </nav>
@@ -39,8 +39,8 @@
                             </th>
                             <th>
                                 <select class="selectpicker form-control"  name="status" title="{{trans('forms.select')}}">
-                                    <option value="enabled" {{ request()->input('status') == "enabled" ? 'selected':'' }}>Enabled</option>
-                                    <option value="disabled" {{ request()->input('status') == "disabled" ? 'selected':'' }}>Disabled</option>
+                                    <option value="enabled" {{ request()->input('status') == "enabled" ? 'selected':'' }}>{{trans('user.enabled')}}</option>
+                                    <option value="disabled" {{ request()->input('status') == "disabled" ? 'selected':'' }}>{{trans('user.disabled')}}</option>
                                 </select>
                             </th>
                             <th>
@@ -68,9 +68,9 @@
                                 <td class="text-center"> {{ optional($item->roles->first())->name }}</td>
                                 <td class="text-center">
                                     @if($item->is_active )
-                                        <span class="badge badge-info"> Enabled </span>
+                                        <span class="badge badge-info"> {{trans('user.enabled')}} </span>
                                     @else
-                                        <span class="badge badge-danger"> Disabled </span>
+                                        <span class="badge badge-danger"> {{trans('user.disabled')}} </span>
                                     @endif
                                 </td>
                                 <td class="text-center">

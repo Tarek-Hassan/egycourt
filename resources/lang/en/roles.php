@@ -11,4 +11,8 @@ return array (
   'role_permissions' => 'Role Permissions',
   'updated' => 'Role Updated Successfully',
   'users_count' => 'Users Count',
+  'role_required'=>'Role name is required',
+  'permissions_required'=>'No Permission Seleted',
+  'permissions_required_msg'=>'No Permission Seleted'
+
 );
