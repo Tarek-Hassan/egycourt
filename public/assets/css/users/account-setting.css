@@ -276,9 +276,6 @@
     Footer
 */
 .account-settings-footer {
-  position: fixed;
-  bottom: 0;
-  width: calc(100% - 295px);
   background: #191e3a;
   padding: 12px 20px;
   -webkit-box-shadow: -2px -9px 20px rgba(126, 142, 177, 0.12);
@@ -291,15 +288,10 @@
     display: flex;
     justify-content: space-between; }
 
-.sidebar-closed .account-settings-footer {
-  width: calc(100% - 94px); }
-
 @media (max-width: 991px) {
   .account-settings-container .account-content {
     width: 100%;
-    padding: 0; }
-  .account-settings-footer {
-    width: calc(100% - 29px); } }
+    padding: 0; } }
 
 @media (max-width: 767px) {
   .general-info .info .upload {

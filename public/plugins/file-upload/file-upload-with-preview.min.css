@@ -76,21 +76,19 @@
   box-sizing: border-box; }
 
 .custom-file-container__image-preview {
-    box-sizing: border-box;
-    transition: all 0.2s ease;
-    margin-top: 12px;
-    /* margin-bottom: 40px; */
-    height: 100px;
-    width: 100%;
-    border-radius: 4px;
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-color: #fff;
-    overflow: auto;
-    padding: 15px;
-}
-}
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  margin-top: 54px;
+  margin-bottom: 40px;
+  height: 250px;
+  width: 100%;
+  border-radius: 4px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  overflow: auto;
+  padding: 15px; }
 
 .custom-file-container__image-multi-preview {
   position: relative;

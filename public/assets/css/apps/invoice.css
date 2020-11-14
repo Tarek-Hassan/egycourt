@@ -8,6 +8,12 @@
 			@Import	Mixins
 	===============================
 */
+.main-container {
+  min-height: auto; }
+
+.layout-px-spacing {
+  min-height: auto !important; }
+
 @keyframes fadeInUp {
   from {
     transform: translate3d(0, 40px, 0); }
@@ -87,7 +93,7 @@
     margin: auto;
     overflow: auto;
     border-right: 1px solid #e0e6ed;
-    height: calc(100vh - 185px); }
+    height: calc(100vh - 256px); }
   .tab-title .nav-item {
     border-bottom: 1px solid #e0e6ed; }
   .tab-title .list-actions {
@@ -143,7 +149,7 @@
   overflow-y: auto;
   max-width: 100%;
   width: 100%;
-  height: calc(100vh - 126px); }
+  height: calc(100vh - 197px); }
   .invoice-inbox .inv-not-selected {
     display: flex;
     height: 100%;

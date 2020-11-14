@@ -16,7 +16,8 @@ body {
   overflow: auto;
   margin: 0;
   padding: 0;
-  background-color: #fff; }
+  background-color: #fff;
+  max-width: 100%; }
 
 .form-form {
   width: 50%;

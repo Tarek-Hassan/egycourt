@@ -8,6 +8,10 @@
 			@Import	Mixins
 	===============================
 */
+body {
+  max-width: 100%;
+  margin: 0; }
+
 /*      Map     */
 #basic_map1 {
   width: 100%;
