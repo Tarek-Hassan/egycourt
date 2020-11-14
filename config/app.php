@@ -16,6 +16,9 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'logo' => env('APP_LOGO', 'assets/img/90x90.jpg'),
+    'multi_lang'=>env('APP_MULTILANG',false),
+    'company'=>env('APP_COMPANY',"Test"),
 
     /*
     |--------------------------------------------------------------------------

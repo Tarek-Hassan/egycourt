@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Menu;
 use App\Models\Master\Company;
 use App\Models\ViewModel\RootMenuNode;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('endnotpermission', function ($expression) {
             return "<?php endif ?>";
         });
-        view()->composer('layouts._sidebar', function ($view) {
+        view()->composer('layouts._menu', function ($view) {
             $rootMenu = [];
             if(Auth::check()){
                 $rootMenu = Auth::user()->getMenu();

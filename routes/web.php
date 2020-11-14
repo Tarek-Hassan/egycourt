@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 });
+Route::get('/lang/change/{name}', "LangController@change")->name('change-lang');
 Auth::routes(['register' => false]);
 // Route::get('/menu', function () {
 //     $start_time = microtime(true);
