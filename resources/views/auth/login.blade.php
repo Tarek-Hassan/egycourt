@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-    <h6 class="">{{trans('login.login_to')}} <span class="brand-name"> Iskraemeco Quotaion System </span></h6>
+    <h6 class="">{{trans('login.login_to')}} <span class="brand-name"> {{ config('app.company') }} </span></h6>
     <form class="text-left" action="{{route('login')}}" method="post">
         @csrf
         <div class="form">
