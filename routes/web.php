@@ -38,6 +38,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('master')->namespace('Master')->group(function () {
         Route::resource('company', 'CompanyController');
         Route::resource('countries', 'CountryController');
+
+        Route::resource('courts', 'CourtController');
+        Route::resource('circuts', 'CircutController');
+        Route::resource('circut_court_specialities', 'CircutCourtSpecialityController');
+        Route::resource('court_schedules', 'CourtScheduleController');
+
+        // ajaxCircutCourtSpecialityController
+        Route::GET('court_gov_courtdegree', 'CircutCourtSpecialityController@getCourtByGovAndCourtDegree');
+        Route::GET('circut_court', 'CircutCourtSpecialityController@getCircutByCourt');
     });
 
 });

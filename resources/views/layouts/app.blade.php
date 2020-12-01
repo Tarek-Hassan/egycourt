@@ -44,6 +44,9 @@
         .list li{
             color: #212529;
         }
+        .invalid-feedback {
+                        display: block;
+            }
 
     </style>
 

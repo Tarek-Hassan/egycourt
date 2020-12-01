@@ -13,6 +13,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
 use Laratrust\Traits\LaratrustUserTrait;
 
+use App\Models\Master\Court;
+use App\Models\Master\Circut;
+
 class User extends Authenticatable implements PermissionSeederContract
 {
     use LaratrustUserTrait;
@@ -90,5 +93,13 @@ class User extends Authenticatable implements PermissionSeederContract
     public function clearMenu(){
         $key = "rootMenu:".$this->id;
         Cache::forget($key);
+    }
+
+    
+    public function court(){
+        return $this->belongsTo(Court::class,'court_id');
+    }
+    public function circut(){
+        return $this->belongsTo(Circut::class,'circut_id');
     }
 }
