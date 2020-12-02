@@ -19,6 +19,8 @@ class SuperUserSeeder extends Seeder
                 'full_name'=>'System Admin',
                 'password'=>Hash::make(123456),
                 'is_active'=>1,
+                'circut_id'=>1,
+                'court_id'=>1,
                 'is_super_admin'=>1,
                 'uuid_code'=>Str::uuid(),
             ]);
