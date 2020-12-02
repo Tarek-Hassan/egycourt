@@ -40,12 +40,13 @@
                             <tbody>
 
                                 @forelse($items as $item)
+                             
                                     <tr>
                                         <td>{{ App\Helpers\Utils::rowNumber($items,$loop) }}</td>
                                         <td>{{ $item->case_date }}</td>
                                         <td>{{App::isLocale('en') ? $item->user->court->government->name_en : $item->court->government->name_ar}}</td>
                                         <td>{{App::isLocale('en') ? $item->user->court->name_en : $item->court->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->circutCourtSpeciality->courtSpecialist->name_en : $item->circutCourtSpeciality->courtSpecialist->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->courtSpecialist->name_en : $item->courtSpecialist->name_ar}}</td>
                                         <td>{{$item->user->circut->year}}/{{$item->user->circut->circut_no}}</td>
                                         <td>{{ $item->role_no }}</td>
 
@@ -54,7 +55,7 @@
 
                                                 @permission('CourtScheduleHeader-Edit')
                                                 <li>
-                                                    <a href="{{ route('court_schedules.edit',$item) }}"
+                                                    <a href="{{ route('court_schedules.edit',$item->id) }}"
                                                         data-toggle="tooltip" data-placement="top" title=""
                                                         data-original-title="edit">
                                                         <i class="far fa-edit text-success"></i>
@@ -63,7 +64,7 @@
                                                 @endpermission
                                                 @permission('CourtScheduleHeader-Show')
                                                 <li>
-                                                    <a href="{{ route('court_schedules.show',$item) }}"
+                                                    <a href="{{ route('court_schedules.show',$item->id) }}"
                                                         data-toggle="tooltip" data-placement="top" title=""
                                                         data-original-title="show">
                                                         <i class="far fa-eye text-primary"></i>

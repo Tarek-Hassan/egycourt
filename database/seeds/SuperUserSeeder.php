@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
-
+use Illuminate\Support\Str;
 class SuperUserSeeder extends Seeder
 {
     /**
@@ -19,7 +19,8 @@ class SuperUserSeeder extends Seeder
                 'full_name'=>'System Admin',
                 'password'=>Hash::make(123456),
                 'is_active'=>1,
-                'is_super_admin'=>1
+                'is_super_admin'=>1,
+                'uuid_code'=>Str::uuid(),
             ]);
         }
     }

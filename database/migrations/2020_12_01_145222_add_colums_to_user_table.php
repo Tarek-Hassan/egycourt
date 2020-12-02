@@ -18,6 +18,7 @@ class AddColumsToUserTable extends Migration
             $table->unsignedBigInteger('court_id')->nullable();
             $table->unsignedBigInteger('circut_id')->nullable();
             $table->unsignedBigInteger('role_id')->nullable();
+            $table->uuid('uuid_code')->nullable();
         });
     }
 

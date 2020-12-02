@@ -11,6 +11,8 @@ use App\Models\Master\CourtSpecialist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Master\CourtScheduleUpdateRequest;
+use App\Http\Requests\Master\CourtScheduleStoreRequest;
 
 use App;
 
@@ -24,8 +26,10 @@ class CourtScheduleController extends Controller
     public function index()
     {
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
-        $court_schedule_headers=CourtScheduleHeader::with(['circutCourtSpeciality','user','courtScheduleDetails'])
+        $court_schedule_headers=CourtScheduleHeader::where('case_date','>',today())
+        ->with(['courtSpecialist','user','courtScheduleDetails'])
         ->paginate(30);
+        
         return view('master.court_schedules.index',[
             'items'=>$court_schedule_headers,
         ]);
@@ -38,20 +42,18 @@ class CourtScheduleController extends Controller
      */
     public function create()
     {
-        // $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
+        $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
 
-        // $court_specialist_arr=Auth::user()->court->circutCourtSpecialities->pluck(['id','court_specialist_id']);
-        // dd($court_specialist_arr);
-        // $court_specialists=CourtSpecialist::whereIn('id',$court_specialist_arr)->get();
+        $court_specialist_arr=Auth::user()->court->circutCourtSpecialities
+                                ->where('circut_id',Auth::user()->circut->id)
+                                ->pluck('court_specialist_id');
 
-        // dd($court_specialists[0]);
+        $court_specialists=CourtSpecialist::whereIn('id',$court_specialist_arr)->distinct()->get();
 
         return view('master.court_schedules.create',[
-            // 'court_specialists'=>$court_specialists,
-          
-            
+            'court_specialists'=>$court_specialists,  
         ]);
-        //
+      
     }
 
     /**
@@ -60,11 +62,22 @@ class CourtScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourtScheduleStoreRequest $request)
+    // public function store(Request $request)
     {
+       
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
-        
+
         $request['created_by']=Auth::user()->id;
+
+        $court_schedule_header=CourtScheduleHeader::create($request->all());
+
+        foreach ($request->schedule_details as $value) {
+            $value['court_schedule_header_id']=$court_schedule_header->id;
+            $value['created_by']=Auth::user()->id;
+            CourtScheduleDetail::create($value);
+        }
+        return redirect()->route('court_schedules.index')->with('success',trans('general.created'));
         //
     }
 
@@ -74,9 +87,18 @@ class CourtScheduleController extends Controller
      * @param  \App\CourtScheduleDetail  $courtScheduleDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(CourtScheduleDetail $courtScheduleDetail)
+    public function show($id)
     {
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
+      
+        $courtScheduleHeader=CourtScheduleHeader::find($id);
+        $courtScheduleDetails=CourtScheduleDetail::where('court_schedule_header_id',$id)->get();
+        return view('master.court_schedules.show',[
+
+            'item'=>$courtScheduleHeader,
+            'courtScheduleDetails'=>$courtScheduleDetails,
+
+        ]);
         //
     }
 
@@ -86,9 +108,27 @@ class CourtScheduleController extends Controller
      * @param  \App\CourtScheduleDetail  $courtScheduleDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(CourtScheduleDetail $courtScheduleDetail)
+    public function edit($id)
     {
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
+
+        $court_specialist_arr=Auth::user()->court->circutCourtSpecialities
+                                ->where('circut_id',Auth::user()->circut->id)
+                                ->pluck('court_specialist_id');
+
+        $court_specialists=CourtSpecialist::whereIn('id',$court_specialist_arr)->distinct()->get();
+
+        $courtScheduleHeader=CourtScheduleHeader::find($id);
+
+        $courtScheduleDetails=CourtScheduleDetail::where('court_schedule_header_id',$id)->get();
+
+        return view('master.court_schedules.edit',[
+
+            'item'=>$courtScheduleHeader,
+            'courtScheduleDetails'=>$courtScheduleDetails,
+            'court_specialists'=>$court_specialists,
+
+        ]);
         //
     }
 
@@ -99,10 +139,26 @@ class CourtScheduleController extends Controller
      * @param  \App\CourtScheduleDetail  $courtScheduleDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CourtScheduleDetail $courtScheduleDetail)
+    public function update(CourtScheduleUpdateRequest $request,$id)
     {
+       
+    
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
-        //
+
+        $courtScheduleHeader=CourtScheduleHeader::find($id);
+        $courtScheduleHeader->update($request->all());
+
+        if($request->schedule_details_update){
+
+            foreach ($request->schedule_details_update as $value) {
+
+                $courtScheduleDetails=CourtScheduleDetail::find($value['id']);
+                $courtScheduleDetails->update($value);
+
+            }
+        }
+        
+        return redirect()->route('court_schedules.index')->with('success',trans('general.created'));
     }
 
     /**

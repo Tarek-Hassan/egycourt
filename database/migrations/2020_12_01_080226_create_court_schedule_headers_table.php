@@ -17,8 +17,7 @@ class CreateCourtScheduleHeadersTable extends Migration
             $table->id();
             $table->string("role_no");
             $table->string("case_date");
-            $table->integer("year");
-            $table->unsignedBigInteger('circut_court_speciality_id');
+            $table->unsignedBigInteger('court_speciality_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();

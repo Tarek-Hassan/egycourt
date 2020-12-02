@@ -12,7 +12,7 @@ use Bitwise\PermissionSeeder\PermissionSeederContract;
 use Bitwise\PermissionSeeder\Traits\PermissionSeederTrait;
 
 class CircutCourtSpeciality extends Model  implements PermissionSeederContract
-{
+{   
     use PermissionSeederTrait;
 
     protected $table="circut_court_specialities";

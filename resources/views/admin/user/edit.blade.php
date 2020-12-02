@@ -14,7 +14,7 @@
 <div class="statbox widget box box-shadow layout-top-spacing">
 
     <div class="widget-content widget-content-area">
-    <form id="createForm" action="{{route('users.update',['user'=>$user->id])}}" method="POST" enctype="multipart/form-data">
+    <form id="createForm" action="{{route('users.update',['user'=>$user->uuid_code])}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="form-row">
@@ -103,6 +103,37 @@
                     @enderror
                 </div>
             </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="role">{{trans('circut.court_id')}}</label>
+                    <select class="selectpicker show-tick form-control" id="court_id" data-live-search="true" name="court_id" title="{{trans('forms.select')}}">
+                        @foreach ($courts as $item)
+                        <option value="{{$item->id}}" {{$item->id == old('court_id',$user->court_id) ? 'selected' :''}}>{{App::isLocale('en') ? $item->name_en :$item->name_ar}}</option>
+                        @endforeach
+                    </select>
+                    @error('court_id')
+                    <div class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                    @enderror
+                </div>
+
+                <input type="hidden" value="{{$user->circut_id}}" class="old_circut_id" />
+
+                <div class="form-group col-md-6">
+                    <label for="circut_id">{{trans('circut_court_speciality.circut_id')}} *</label>
+                    <select class="selectpicker form-control " id="circut_id"  name="circut_id" data-size="10" title="{{trans('forms.select')}}" disabled>
+        
+                    </select>
+                    @error('circut_id')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
+                </div>
+            </div>
             <hr/>
 
             <div class="form-row">
@@ -179,5 +210,45 @@
                 }
         })
     </script>
+
+    <script>
+         $(function(){
+                $('.row #court_id').change();
+            })
+        $(".row").on('change', '#court_id', function () {
+            let court_id = $("#court_id").val();
+            let circut =$("#circut_id");
+            let old_circut_id = $(".old_circut_id").val();
+            circut.empty();
+            $.ajax({
+                url: '/master/circut_court',
+                method: "GET",
+                data: {
+                    court:court_id,
+                }
+            }).done(function (response) {
+
+                circut.empty();
+                if (response.length > 0) {
+
+                    circut.attr('disabled', false);
+
+                    $.each(response, function (key, value) {
+                        
+                        let select= ( old_circut_id == value.id ) ? "selected" : "" ;
+                        circut.append('<option value=' + value.id +' '+select+'> ' + value.year +'/'+value.circut_no +'</option>');
+                    });
+
+                }else{
+                    circut.attr('disabled', true);
+                }
+                circut.selectpicker('refresh');
+            }).fail(function () {
+                circut.attr('disabled', true);
+            });
+
+            });
+    </script>
+
 @endpush
 

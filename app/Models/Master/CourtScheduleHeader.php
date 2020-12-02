@@ -4,7 +4,7 @@ namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Master\CourtScheduleDetail;
-use App\Models\Master\CircutCourtSpeciality;
+use App\Models\Master\CourtSpecialist;
 use App\User;
 
 use Bitwise\PermissionSeeder\PermissionSeederContract;
@@ -16,11 +16,10 @@ class CourtScheduleHeader extends Model implements PermissionSeederContract
 
     protected $table="court_schedule_headers";
 
-    protected $guarded=[];
+    protected $fillable=['role_no','case_date','court_speciality_id','created_by','updated_by'];
 
-
-    public function circutCourtSpeciality(){
-        return $this->belongsTo(CircutCourtSpeciality::class,'circut_court_speciality_id');
+    public function courtSpecialist(){
+        return $this->belongsTo(CourtSpecialist::class,'court_speciality_id');
     }
     public function user(){
         return $this->belongsTo(User::class,'created_by');

@@ -12,7 +12,7 @@
 </div>
     <div class="statbox widget box box-shadow layout-top-spacing">
         <div class="widget-content widget-content-area">
-        <form id="createForm" action="{{route('users.edit',['user'=>$user->id])}}" method="get" enctype="multipart/form-data">
+        <form id="createForm" action="{{route('users.edit',['user'=>$user->uuid_code])}}" method="get" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -41,6 +41,18 @@
                     <div class="form-group col-md-6">
                         <label for="empCode">{{trans('user.employee_no')}}</label>
                         <input type="text" class="form-control" id="empCode" name="employee_no" value="{{$user->employee_no}}" disabled>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label >{{trans('circut.court_id')}}</label>
+                        <input type="text" class="form-control"  value="{{App::isLocale('en') ? $user->court->name_en :$user->court->name_ar}} " disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label >{{trans('circut_court_speciality.circut_id')}} </label>
+                            <input type="text" class="form-control"  value="{{ $user->circut->year}}/ {{ $user->circut->circut_no}} " disabled>
+
                     </div>
                 </div>
                 <hr/>

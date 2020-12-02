@@ -15,25 +15,41 @@
                     </nav>
                 </div>
                 <div class="widget-content widget-content-area">
-                    <form id="createForm" action="{{route('court_schedules.update',$item)}}" method="POST">
+                    <form id="createForm" action="{{route('court_schedules.update',$item->id)}}" method="POST">
                         @csrf
                         @method('put')
 
 
-                        
-                        <input type="hidden" class="old_court_id" value="{{$item->court_id}}"/>
-                        <input type="hidden" class="old_circut_id" value="{{$item->circut_id}}"/>
+    
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label >{{trans('court_schedule.user_name')}}</label>
+                                <input  class="form-control"   value="{{Auth::user()->full_name}}" disabled>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label >{{trans('court_schedule.court_id')}}</label>
+                                <input  class="form-control"   value="{{App::isLocale('en') ? Auth::user()->court->name_en : Auth::user()->court->name_ar}}" disabled>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label >{{trans('court_schedule.circut_id')}}</label>
+                                <input  class="form-control"   value="{{Auth::user()->circut->year}}/{{Auth::user()->circut->circut_no}}" disabled>
+                            </div>
+                        </div>
 
                         <div class="row">
 
                             <div class="form-group col-md-4">
-                                <label for="gov_id">{{trans('circut_court_speciality.gov_id')}} *</label>
-                                <select class="selectpicker form-control get_court" id="gov_id"  name="gov_id" data-size="10" title="{{trans('forms.select')}}">
-                                    @foreach ($governments as $government)    
-                                        <option value="{{$government->id}}"  {{$item->court->government->id == $government->id ? 'selected':''}} > {{App::isLocale('en') ? $government->name_en :$government->name_ar}} </option>
+                                <label for="court_speciality_id">{{trans('court_schedule.court_speciality_id')}} *</label>
+                                <select class="selectpicker form-control get_court" id="court_speciality_id"  name="court_speciality_id" data-size="10" title="{{trans('forms.select')}}">
+
+                                    @foreach ($court_specialists as $court_specialist)    
+                                        <option value="{{$court_specialist->id}}" {{$item->courtSpecialist->id == $court_specialist->id ? 'selected':''}}> {{App::isLocale('en') ? $court_specialist->name_en :$court_specialist->name_ar}} </option>
                                     @endforeach
+                                       
                                 </select>
-                                @error('gov_id')
+                                @error('court_speciality_id')
                                     <div class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -41,75 +57,117 @@
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="court_degree_id">{{trans('circut_court_speciality.court_degree_id')}} *</label>
-                                <select class="selectpicker form-control get_court" id="court_degree_id"  name="court_degree_id" data-size="10" title="{{trans('forms.select')}}">
-                                    @foreach ($court_degrees as $court_degree)    
-                                        <option value="{{$court_degree->id}}" {{ $item->court->courtDegree->id == $court_degree->id ? 'selected':''}}  > {{App::isLocale('en') ? $court_degree->name_en :$court_degree->name_ar}} </option>
-                                    @endforeach
-                                </select>
-                                @error('court_degree_id')
+                                <label for="role_no">{{ trans('court_schedule.role_no') }} *</label>
+                                <input type="text" class="form-control" id="role_no" name="role_no" value="{{ $item->role_no}}"
+                                    placeholder="{{ trans('court_schedule.role_no') }}"
+                                    autocomplete="disabled" autofocus>
+                                @error('role_no')
                                     <div class="invalid-feedback">
-                                        {{$message}}
+                                        {{ $message }}
                                     </div>
                                 @enderror
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="court_id">{{trans('circut_court_speciality.court_id')}} *</label>
-                                <select class="selectpicker form-control " id="court_id"  name="court_id" data-size="10" title="{{trans('forms.select')}}" disabled>
-                                </select>
-                                @error('court_id')
+                                <label for="case_date">{{ trans('court_schedule.case_date') }} *</label>
+                                <input id="case_date" value="{{  $item->case_date }}" name="case_date" 
+                                        class="form-control form-control-sm flatpickr flatpickr-input active" type="text">
+                                @error('case_date')
                                     <div class="invalid-feedback">
-                                        {{$message}}
+                                        {{ $message }}
                                     </div>
                                 @enderror
                             </div>
 
                         </div>
 
+                        <hr>
 
-                        <div class="row">
-
-                            <div class="form-group col-md-4">
-                                <label for="circut_id">{{trans('circut_court_speciality.circut_id')}} *</label>
-                                <select class="selectpicker form-control " id="circut_id"  name="circut_id" data-size="10" title="{{trans('forms.select')}}" disabled>
+                        <div class="row  justify-content-center">
+                            <div class="col-md-2">
+                                <h3><b>{{ trans('court_schedule.order') }}</b></h3>
+                            </div>
         
-                                </select>
-                                @error('circut_id')
-                                    <div class="invalid-feedback">
-                                        {{$message}}
+                            <div class="col-md-3">
+                                <h3><b>{{ trans('court_schedule.case_year') }}</b></h3>
+                            </div>
+        
+                            <div class="col-md-3">
+                                <h3><b>{{ trans('court_schedule.case_no') }}</b></h3>
+                            </div>
+        
+                            <div class="col-md-4">
+                                <h3><b>{{ trans('court_schedule.case_desc') }}</b></h3>
+                            </div>
+        
+                        </div>
+
+                        <hr>
+                      
+
+                        <div class="justify-content-center">
+                            @if (count($courtScheduleDetails)>0)
+                                @foreach ($courtScheduleDetails as $courtScheduleDetail)
+                                    <div class="row mb-1 ">
+
+                                        <div class="form-group col-md-2">
+                                            <input type="text" class="form-control"  value="{{ $courtScheduleDetail->order}}"  disabled>
+                                        </div>
+                                        
+                                        <input type="hidden" name="schedule_details_update[{{$courtScheduleDetail->id}}][id]" value="{{$courtScheduleDetail->id}}"/>
+
+                                        <div class="form-group col-md-3">
+                                            <input type="number" class="form-control case_year"  name="schedule_details_update[{{$courtScheduleDetail->id}}][case_year]" 
+                                        placeholder="{{ trans('court_schedule.case_year') }}" value="{{$courtScheduleDetail->case_year}}"
+                                                autocomplete="disabled" autofocus>
+
+                                            @if (array_key_exists("schedule_details_update.$courtScheduleDetail->id.case_year",$errors->getMessages()))
+                                                @error("schedule_details_update.$courtScheduleDetail->id.case_year")
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            @endif
+
+                                        </div>
+                
+                                        <div class="form-group col-md-3">
+                                            <input type="text" class="form-control case_no"  name="schedule_details_update[{{$courtScheduleDetail->id}}][case_no]" 
+                                                placeholder="{{ trans('court_schedule.case_no') }}" value="{{$courtScheduleDetail->case_no}}"
+                                                autocomplete="disabled" autofocus>
+
+                                            @if (array_key_exists("schedule_details_update.$courtScheduleDetail->id.case_no",$errors->getMessages()))
+                                                @error("schedule_details_update.$courtScheduleDetail->id.case_no")
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            @endif
+
+                                        </div>
+                
+                                        <div class="form-group col-md-4">
+                                            <input type="text" class="form-control case_desc"  name="schedule_details_update[{{$courtScheduleDetail->id}}][case_desc]" 
+                                                placeholder="{{ trans('court_schedule.case_desc') }}" value="{{$courtScheduleDetail->case_desc}}"
+                                                autocomplete="disabled" autofocus>
+
+                                            @if (array_key_exists("schedule_details_update.$courtScheduleDetail->id.case_desc",$errors->getMessages()))
+                                                @error("schedule_details_update.$courtScheduleDetail->id.case_desc")
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            @endif
+
+                                        </div>
+
                                     </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                <label for="court_specialist_id">{{trans('circut_court_speciality.court_specialist_id')}} *</label>
-                                <select class="selectpicker form-control" id="court_specialist_id"  name="court_specialist_id" data-size="10" title="{{trans('forms.select')}}">
-                                    @foreach ($court_specialisties as $court_specialisty)    
-                                        <option value="{{$court_specialisty->id}}"  {{$item->courtSpecialist->id == $court_specialisty->id ? 'selected':''}} > {{App::isLocale('en') ? $court_specialisty->name_en : $court_specialisty->name_ar}} </option>
-                                    @endforeach
-                                       
-                                </select>
-                                @error('court_specialist_id')
-                                <div class="invalid-feedback">
-                                    {{$message}}
+                                @endforeach
+                            @else
+                                <div class="form-group col-md-12 text-center">
+                                    <p>{{ trans('home.no_data_found') }}</p>
                                 </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                <label for="mainActiveInput">{{trans('general.is_active')}} </label>
-                                <select class="selectpicker form-control" id="mainActiveInput"  name="is_active" data-size="10" title="{{trans('forms.select')}}">
-                                        <option value="1" {{$item->is_active == 1 ? 'selected':''}}>{{trans('general.active')}}</option>
-                                        <option value="0" {{$item->is_active == 0 ? 'selected':''}}>{{trans('general.deactivate')}}</option>
-                                </select>
-                                @error('is_active')
-                                <div class="invalid-feedback">
-                                    {{$message}}
-                                </div>
-                                @enderror
-                            </div>
-
+                            @endif
                         </div>
 
                         
@@ -128,93 +186,13 @@
     </div>
 </div>
 @endsection
+@push('styles')
+    <link href="{{ asset('plugins/flatpickr/flatpickr.css') }}" rel="stylesheet" type="text/css">
+@endpush
+
 @push('scripts')
-
-    <script>
-
-            $(function(){
-                $('.row .get_court').change();
-            })
-
-            $(".row").on('change', '.get_court', function () {
-               
-                let gov_id = $("#gov_id").val();
-                let court_degree_id = $("#court_degree_id").val();
-                let court =$("#court_id");
-
-                let old_court_id = $(".old_court_id").val();
-               
-                court.empty();
-
-                $.ajax({
-
-                    url: '/master/court_gov_courtdegree',
-                    method: "GET",
-                    data: {
-                        gov:gov_id,
-                        court_degree:court_degree_id,
-                    }
-                }).done(function (response) {
-                    court.empty();
-                    if (response.length > 0) { 
-                        court.attr('disabled', false);
-                        $.each(response, function (key, value) {
-                           
-                            let select = (old_court_id == value.id)?"selected":"";
-                            court.append('<option value=' + value.id   +'  '+select+'> ' + value.name + '</option>');
-
-                        });
-
-                    }else{
-                        court.attr('disabled', true);
-                    }
-                    court.selectpicker('refresh');
-                    $('.row #court_id').change();
-
-                }).fail(function () {
-
-                    court.attr('disabled', true);
-
-                });
-
-            });
-
-            $(".row").on('change', '#court_id', function () {
-
-                let court_id = $("#court_id").val();
-                let circut =$("#circut_id");
-                let old_circut_id = $(".old_circut_id").val();
-                circut.empty();
-                $.ajax({
-                    url: '/master/circut_court',
-                    method: "GET",
-                    data: {
-                        court:court_id,
-                    }
-                }).done(function (response) {
-
-                    circut.empty();
-                    if (response.length > 0) {
-
-                        circut.attr('disabled', false);
-
-                        $.each(response, function (key, value) {
-                            
-                            let select= ( old_circut_id == value.id ) ? "selected" : "" ;
-                            circut.append('<option value=' + value.id +' '+select+'> ' + value.year +'/'+value.circut_no +'</option>');
-                        });
-
-                    }else{
-                        circut.attr('disabled', true);
-                    }
-                    circut.selectpicker('refresh');
-                }).fail(function () {
-                    circut.attr('disabled', true);
-                });
-
-            });
-      
-
-    </script>
-
+<script src="{{ asset('plugins/flatpickr/flatpickr.js') }}"></script>
+<script>
+    var deposit_date = flatpickr(document.getElementById('case_date'));
+</script>
 @endpush

@@ -77,14 +77,14 @@
                                     <ul class="table-controls">
                                         @permission('User-Edit')
                                         <li>
-                                            <a href="{{route('users.edit',['user'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit">
+                                            <a href="{{route('users.edit',['user'=>$item->uuid_code])}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit">
                                                 <i class="far fa-edit text-success"></i>
                                             </a>
                                         </li>
                                         @endpermission
                                         @permission('User-Show')
                                         <li>
-                                            <a href="{{route('users.show',['user'=>$item->id])}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="show">
+                                            <a href="{{route('users.show',['user'=>$item->uuid_code])}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="show">
                                                 <i class="far fa-eye text-primary"></i>
                                             </a>
                                         </li>

@@ -18,48 +18,92 @@
                 <div class="widget-content widget-content-area">
                     <form id="createForm" action="{{route('court_schedules.edit',$item)}}" method="get">
 
-
                         <div class="row">
 
                             <div class="form-group col-md-4">
-                                <label for="gov_id_Input">{{trans('circut_court_speciality.gov_id')}}</label>
-                                <input type="text" class="form-control" id="gov_id_Input"  value="{{App::isLocale('en') ? $item->court->government->name_en : $item->court->government->name_ar}}" disabled>
+                                <label >{{trans('court_schedule.user_name')}}</label>
+                                <input  class="form-control"   value="{{Auth::user()->full_name}}" disabled>
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="court_id_Input">{{trans('circut_court_speciality.court_id')}}</label>
-                                <input type="text" class="form-control" id="court_id_Input"  value="{{App::isLocale('en') ? $item->court->name_en : $item->court->name_ar}}" disabled>
+                                <label >{{trans('court_schedule.court_id')}}</label>
+                                <input  class="form-control"   value="{{App::isLocale('en') ? Auth::user()->court->name_en : Auth::user()->court->name_ar}}" disabled>
                             </div>
-
                             <div class="form-group col-md-4">
-                                <label for="court_degree_id_Input">{{trans('circut_court_speciality.court_degree_id')}}</label>
-                                <input type="text" class="form-control" id="court_degree_id_Input"  value="{{App::isLocale('en') ? $item->court->courtDegree->name_en : $item->court->courtDegree->name_ar}}" disabled>
+                                <label >{{trans('court_schedule.circut_id')}}</label>
+                                <input  class="form-control"   value="{{Auth::user()->circut->year}}/{{Auth::user()->circut->circut_no}}" disabled>
                             </div>
-
                         </div>
 
                         <div class="row">
 
                             <div class="form-group col-md-4">
-                                <label for="court_specialist_id_Input">{{trans('circut_court_speciality.court_specialist_id')}}</label>
-                                <input type="text" class="form-control" id="court_specialist_id_Input"  value="{{App::isLocale('en') ? $item->courtSpecialist->name_en : $item->courtSpecialist->name_ar}}" disabled>
+                                <label for="court_speciality_id">{{trans('court_schedule.court_speciality_id')}} *</label>
+                                <input  value="{{App::isLocale('en') ? $item->courtSpecialist->name_en :$item->courtSpecialist->name_ar}}" class="form-control form-control-sm flatpickr flatpickr-input active" type="text" disabled>
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="circut_no_Input">{{trans('circut_court_speciality.circut_no')}}</label>
-                                <input type="text" class="form-control" id="circut_no_Input"  value="{{ $item->circut->year }}/{{$item->circut->circut_no }}" disabled>
+                                <label for="circut_no_Input">{{ trans('court_schedule.role_no') }} *</label>
+                                <input type="text" class="form-control" id="role_no_Input" value="{{ $item->role_no}}"
+                                    placeholder="{{ trans('court_schedule.role_no') }}"
+                                    autocomplete="disabled" disabled>
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="mainActiveInput">{{trans('general.is_active')}} </label>
-                                <select class="selectpicker form-control" id="mainActiveInput"  name="is_active" data-size="10" title="{{trans('forms.select')}}" disabled>
-                                        <option value="1" {{$item->is_active == 1 ? 'selected':''}}>{{trans('general.active')}}</option>
-                                        <option value="0" {{$item->is_active == 0 ? 'selected':''}}>{{trans('general.deactivate')}}</option>
-                                </select>
+                                <label for="case_date">{{ trans('court_schedule.case_date') }} *</label>
+                                <input  value="{{  $item->case_date }}" class="form-control form-control-sm flatpickr flatpickr-input active" type="text" disabled>
                             </div>
 
                         </div>
 
+                        <hr>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-2">
+                                <h3><b>{{ trans('court_schedule.order') }}</b></h3>
+                            </div>
+        
+                            <div class="col-md-3">
+                                <h3><b>{{ trans('court_schedule.case_year') }}</b></h3>
+                            </div>
+        
+                            <div class="col-md-3">
+                                <h3><b>{{ trans('court_schedule.case_no') }}</b></h3>
+                            </div>
+        
+                            <div class="col-md-4">
+                                <h3><b>{{ trans('court_schedule.case_desc') }}</b></h3>
+                            </div>
+        
+                        </div>
+                        <hr>
+                        
+                        @if (count($courtScheduleDetails)>0)
+                            @foreach ($courtScheduleDetails as $courtScheduleDetail)
+                                <div class="row d-flex justify-content-center">
+                                    <div class="form-group col-md-2">
+                                        <input type="text" class="form-control"  value="{{ $courtScheduleDetail->order}}"  disabled>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <input type="text" class="form-control"  value="{{ $courtScheduleDetail->case_year}}"  disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <input type="text" class="form-control"  value="{{ $courtScheduleDetail->case_no}}"  disabled>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <input type="text" class="form-control"  value="{{ $courtScheduleDetail->case_desc}}"  disabled>
+                                    </div>
+
+                                </div>
+                            @endforeach
+                            
+                        @else
+                            <div class="form-group col-md-12 text-center">
+                                <p>{{ trans('home.no_data_found') }}</p>
+                            </div>
+                        @endif
+                       
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 @permission('CourtScheduleHeader-Edit')
@@ -68,7 +112,6 @@
                                     <a href="{{route('court_schedules.index')}}" class="btn btn-danger mt-3">{{trans('forms.cancel')}}</a>
                             </div>
                         </div>
-
 
                     </form>
                 </div>

@@ -102,6 +102,34 @@
             <div class="form-row">
 
                 <div class="form-group col-md-6">
+                    <label for="role">{{trans('circut.court_id')}}</label>
+                    <select class="selectpicker show-tick form-control" id="court_id" data-live-search="true" name="court_id" title="{{trans('forms.select')}}">
+                        @foreach ($courts as $item)
+                        <option value="{{$item->id}}" {{$item->id == old('court_id') ? 'selected' :''}}>{{App::isLocale('en') ? $item->name_en :$item->name_ar}}</option>
+                        @endforeach
+                    </select>
+                    @error('court_id')
+                    <div class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="circut_id">{{trans('circut_court_speciality.circut_id')}} *</label>
+                    <select class="selectpicker form-control " id="circut_id"  name="circut_id" data-size="10" title="{{trans('forms.select')}}" disabled>
+        
+                    </select>
+                    @error('circut_id')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
                     <label for="role">{{trans('user.role')}} <span class="text-warning"> ({{trans('user.role_rule')}})</span></label>
                     <select class="selectpicker show-tick form-control" id="role" data-live-search="true" name="role" title="{{trans('forms.select')}}">
                         @foreach ($roles as $item)
@@ -126,7 +154,6 @@
                     </div>
                     @enderror
                 </div>
-
             </div>
             <hr/>
 
@@ -172,6 +199,38 @@
                     baseImage: '{{asset('assets/img/profile.png')}}',
                 }
         })
+    </script>
+    <script>
+        $(".row").on('change', '#court_id', function () {
+
+            let court_id = $("#court_id").val();
+            let circut =$("#circut_id");
+
+            $.ajax({
+                url: '/master/circut_court',
+                method: "GET",
+                data: {
+                    court:court_id,
+                }
+            }).done(function (response) {
+            
+                circut.empty();
+                if (response.length > 0) {
+                
+                    circut.attr('disabled', false);
+                    $.each(response, function (key, value) {
+                        circut.append('<option value=' + value.id + '> ' + value.year +'/'+value.circut_no +'</option>');
+                    });
+                }else{
+                    circut.attr('disabled', true);
+                }
+                circut.selectpicker('refresh');
+            }).fail(function () {
+                circut.attr('disabled', true);
+            });
+
+        });
+
     </script>
 @endpush
 

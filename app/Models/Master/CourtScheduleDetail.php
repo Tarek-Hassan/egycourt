@@ -16,7 +16,7 @@ class CourtScheduleDetail extends Model implements PermissionSeederContract
 
     protected $table="court_schedule_details";
 
-    protected $guarded=[];
+    protected $fillable=['case_year','case_no','case_desc','order','court_schedule_header_id','created_by','schedule_status_id'];
 
 
     public function user(){

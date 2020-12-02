@@ -20,13 +20,13 @@
                     <div class="col-md-1">
                         <h3></h3>
                     </div>
-
                 </div>
                 <hr>
 
                 <div class="schedule_main_div">
 
                     <div class="row mb-1 schedule_clone_div">
+                        
                         <div class="form-group col-md-2">
                             <input type="number" class="form-control case_year"  name="schedule_details[1][case_year]" 
                                 placeholder="{{ trans('court_schedule.case_year') }}"
@@ -61,13 +61,12 @@
                         </div>
 
                         <div class="col-md-2">
-                            <input type="hidden" class="order" name="schedule_details[1][order]" />
+                            <input type="hidden" class="order" name="schedule_details[1][order]" value="1"/>
                         </div>
 
                         <div class="col-md-1">
                             <div class="form-group button mb-0 mt-2">
                                     <i class="fas fa-plus-circle text-success add_schedule_details_desc fa-lg"></i>
-                
                             </div>    
                         </div>
                     </div>
@@ -91,7 +90,7 @@
                     div.find('.case_year').attr('name', "schedule_details[" + x + "][case_year]").val('');
                     div.find('.case_no').attr('name', "schedule_details[" + x + "][case_no]").val('');
                     div.find('.case_desc').attr('name', "schedule_details[" + x + "][case_desc]").val('');
-                    div.find('.order').attr('name', "schedule_details[" + x + "][order]").val('');
+                    div.find('.order').attr('name', "schedule_details[" + x + "][order]").val(x);
 
                     div.find('.button').append(
                         "  <i id='" + x + "' class='fas fa-times-circle fa-lg text-danger remove_schedule_details_desc mt-3 mx-2'></i>"

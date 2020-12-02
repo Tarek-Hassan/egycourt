@@ -20,7 +20,7 @@ class CreateCourtScheduleDetailsTable extends Migration
             $table->string("case_desc");
             $table->integer("order");
             $table->unsignedBigInteger('court_schedule_header_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('created_by');
             $table->boolean("schedule_status_id")->default(0);
             $table->timestamps();
         });

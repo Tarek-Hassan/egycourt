@@ -41,15 +41,15 @@
                         <div class="row">
 
                             <div class="form-group col-md-4">
-                                <label for="circut_court_speciality_id">{{trans('court_schedule.circut_court_speciality_id')}} *</label>
-                                <select class="selectpicker form-control get_court" id="circut_court_speciality_id"  name="circut_court_speciality_id" data-size="10" title="{{trans('forms.select')}}">
+                                <label for="court_speciality_id">{{trans('court_schedule.court_speciality_id')}} *</label>
+                                <select class="selectpicker form-control get_court" id="court_speciality_id"  name="court_speciality_id" data-size="10" title="{{trans('forms.select')}}">
 
-                                    {{-- @foreach ($court_specialists as $court_specialist)    
-                                        <option value="{{$court_specialist->id}}"  > {{App::isLocale('en') ? $court_specialist->name_en :$court_specialist->name_ar}} </option>
-                                    @endforeach --}}
+                                    @foreach ($court_specialists as $court_specialist)    
+                                        <option value="{{$court_specialist->id}}" > {{App::isLocale('en') ? $court_specialist->name_en :$court_specialist->name_ar}} </option>
+                                    @endforeach
                                        
                                 </select>
-                                @error('circut_court_speciality_id')
+                                @error('court_speciality_id')
                                     <div class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -72,7 +72,7 @@
                                 <label for="case_date">{{ trans('court_schedule.case_date') }} *</label>
                                 <input id="case_date" value="{{ today() }}" name="case_date" 
                                         class="form-control form-control-sm flatpickr flatpickr-input active" type="text">
-                                @error('role_no')
+                                @error('case_date')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

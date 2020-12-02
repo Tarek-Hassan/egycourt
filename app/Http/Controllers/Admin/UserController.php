@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Filters\User\UserIndexFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Master\Company;
+
+use App\Models\Master\Court;
+use App\Models\Master\Circut;
+
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -28,7 +33,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function show(User $user){
+    public function show($user){
+
+
+        $user=User::where('uuid_code',$user)->first();
+
         $this->authorize(__FUNCTION__,User::class);
         $user->load('roles','companies');
         return view('admin.user.show',[
@@ -36,6 +45,7 @@ class UserController extends Controller
         ]);
     }
     public function showProfile(){
+      
         $user = Auth::user();
         $user->load('roles','companies');
         return view('admin.user.show-profile',[
@@ -45,23 +55,30 @@ class UserController extends Controller
 
 
     public function create(){
+
         $this->authorize(__FUNCTION__,User::class);
         $companies = Company::orderBy('name')->get();
         $roles = Role::orderBy('name')->get();
+
+        $courts=Court::all();
+
         return view('admin.user.create',[
             'companies'=>$companies,
-            'roles'=>$roles
+            'roles'=>$roles,
+            'courts'=>$courts
         ]);
     }
 
     public function store(Request $request){
+       
         $this->authorize(__FUNCTION__,User::class);
         $this->validate($request,$this->rules(),$this->messages());
         $data = array_merge($request->except('_token','password_confirmation','role'),[
             'password'=>Hash::make($request->input('password')),
             'avatar'=>$this->storeAvatar($request),
             'is_super_admin'=>0,
-            'company_id'=>Company::getCompanyId()
+            'company_id'=>Company::getCompanyId(),
+            'uuid_code'=>Str::uuid(),
         ]);
         if(is_null($request->input('role'))){
             $data['is_active'] = '0';
@@ -73,21 +90,29 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success',trans('user.created'));
     }
 
-    public function edit(User $user){
+    public function edit($user){
+
+       $user=User::where('uuid_code',$user)->first();
+
         $this->authorize(__FUNCTION__,User::class);
         $companies = Company::orderBy('name')->get();
         $roles = Role::orderBy('name')->get();
+        $courts=Court::all();
         $user->load('roles');
         $userCompanis = $user->companies()->pluck('company_users.company_id')->all();
         return view('admin.user.edit',[
             'companies'=>$companies,
             'roles'=>$roles,
             'user'=>$user,
-            'userCompanis'=>$userCompanis
+            'userCompanis'=>$userCompanis,
+            'courts'=>$courts
         ]);
     }
 
-    public function update(Request $request,User $user){
+    public function update(Request $request,$user){
+
+        $user=User::where('uuid_code',$user)->first();
+        
         $this->authorize(__FUNCTION__,User::class);
         $this->validate($request,$this->rules(true,$user));
         $data = array_merge($request->except('_token','password','password_confirmation','role','companies'),[
@@ -111,7 +136,9 @@ class UserController extends Controller
             'password'=>'required|string|min:6|max:30|confirmed',
             'email'=>'email|nullable|unique:users,email',
             'employee_no'=>'nullable|integer|unique:users,employee_no',
-            'avatar'=>'nullable|mimes:jpeg,png|file|max:2048'
+            'avatar'=>'nullable|mimes:jpeg,png|file|max:2048',
+            'court_id'=>'required',
+            'circut_id'=>'required',
         ];
         if($is_update){
             $rules = array_merge($rules, [
