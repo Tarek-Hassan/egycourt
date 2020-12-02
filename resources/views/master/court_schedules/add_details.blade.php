@@ -13,9 +13,9 @@
                         <h3><b>{{ trans('court_schedule.case_desc') }}</b></h3>
                     </div>
 
-                    <div class="col-md-2">
+                    {{-- <div class="col-md-2">
                         <h3><b>{{ trans('court_schedule.order') }}</b></h3>
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-1">
                         <h3></h3>
@@ -93,7 +93,7 @@
                     div.find('.order').attr('name', "schedule_details[" + x + "][order]").val(x);
 
                     div.find('.button').append(
-                        "  <i id='" + x + "' class='fas fa-times-circle fa-lg text-danger remove_schedule_details_desc mt-3 mx-2'></i>"
+                        "  <i id='" + x + "' class='fas fa-times-circle fa-lg text-danger remove_schedule_details_desc'></i>"
                     );
                     
                    $(".schedule_main_div").append(div);

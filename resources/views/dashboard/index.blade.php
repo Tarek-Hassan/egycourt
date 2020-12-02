@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12 layout-spacing">
+{{-- <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12 layout-spacing">
     <div class="page-header">
         <div class="page-title">
             <h3>Analytics Dashboard</h3>
@@ -18,9 +18,9 @@
         </div>
     </div>
 
-</div>
+</div> --}}
 
-<div class="row">
+{{-- <div class="row">
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 layout-spacing">
         <div class="widget-four">
             <div class="widget-heading">
@@ -144,7 +144,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 @push('styles')

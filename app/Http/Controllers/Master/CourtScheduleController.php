@@ -25,6 +25,7 @@ class CourtScheduleController extends Controller
      */
     public function index()
     {
+        
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
         $court_schedule_headers=CourtScheduleHeader::where('case_date','>',today())
         ->with(['courtSpecialist','user','courtScheduleDetails'])
