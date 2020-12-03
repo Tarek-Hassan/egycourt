@@ -81,9 +81,7 @@
                                 <hr>
 
                                 <div class="row  justify-content-center">
-                                    <div class="col-md-2">
-                                        <h3><b>{{ trans('court_schedule.order') }}</b></h3>
-                                    </div>
+
                 
                                     <div class="col-md-3">
                                         <h3><b>{{ trans('court_schedule.case_year') }}</b></h3>
@@ -93,7 +91,7 @@
                                         <h3><b>{{ trans('court_schedule.case_no') }}</b></h3>
                                     </div>
                 
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <h3><b>{{ trans('court_schedule.case_desc') }}</b></h3>
                                     </div>
                 
@@ -102,10 +100,6 @@
                                 <hr>
                                 @foreach ($courtScheduleDetails as $courtScheduleDetail)
                                     <div class="row mb-1 ">
-
-                                        <div class="form-group col-md-2">
-                                            <input type="text" class="form-control"  value="{{ $courtScheduleDetail->order}}"  disabled>
-                                        </div>
                                         
                                         <input type="hidden" name="schedule_details_update[{{$courtScheduleDetail->id}}][id]" value="{{$courtScheduleDetail->id}}"/>
 
@@ -139,7 +133,7 @@
 
                                         </div>
                 
-                                        <div class="form-group col-md-2">
+                                        <div class="form-group col-md-5">
                                             <input type="text" class="form-control case_desc"  name="schedule_details_update[{{$courtScheduleDetail->id}}][case_desc]" 
                                                 placeholder="{{ trans('court_schedule.case_desc') }}" value="{{$courtScheduleDetail->case_desc}}"
                                                 autocomplete="disabled" autofocus>
@@ -154,10 +148,7 @@
 
                                         </div>
 
-                                        <div class="form-group col-md-1">
-                                            <i class="fas fa-arrow-up  up fa-lg mt-3"></i>
-                                            <i class="fas fa-arrow-down  down fa-lg mt-3"></i>
-                                        </div>
+
                                         <div class="col-md-1">
                                             <div class="form-group mb-0">
                                                     <i id={{$courtScheduleDetail->id}} class='fas fa-times-circle fa-lg text-danger remove_court_schedule_detail mt-3' ></i>
@@ -257,7 +248,8 @@
             console.log("moveUp"+this);
             var prev = item.prev();
             if (prev.length == 0) return;
-            console.log(prev);
+            console.log("moveUp"+prev);
+            console.log();
             // prev.css('z-index', 999).css('position', 'relative').animate({
             //     top: item.height()
             // }, 250);
@@ -271,5 +263,21 @@
             //     sendOrderToServer();
             // });
         }
+        function moveDown(item) {
+        var next = item.next();
+        if (next.length == 0) return;
+        next.css('z-index', 999).css('position', 'relative').animate({
+            top: '-' + item.height()
+        }, 250);
+        item.css('z-index', 1000).css('position', 'relative').animate({
+            top: next.height()
+        }, 300, function () {
+            next.css('z-index', '').css('top', '').css('position', '');
+            item.css('z-index', '').css('top', '').css('position', '');
+            item.insertAfter(next);
+
+            sendOrderToServer();
+        });
+    }
     </script> --}}
 @endpush
