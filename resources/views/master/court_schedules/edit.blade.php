@@ -28,14 +28,8 @@
                                 <input  class="form-control"   value="{{Auth::user()->full_name}}" disabled>
                             </div>
 
-                            <div class="form-group col-md-4">
-                                <label >{{trans('court_schedule.court_id')}}</label>
-                                <input  class="form-control"   value="{{App::isLocale('en') ? Auth::user()->court->name_en : Auth::user()->court->name_ar}}" disabled>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label >{{trans('court_schedule.circut_id')}}</label>
-                                <input  class="form-control"   value="{{Auth::user()->circut->year}}/{{Auth::user()->circut->circut_no}}" disabled>
-                            </div>
+                            @include('master.court_schedules.edit_header_partials')
+                            
                         </div>
 
                         <div class="row">

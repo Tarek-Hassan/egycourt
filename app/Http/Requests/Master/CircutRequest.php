@@ -37,9 +37,9 @@ class CircutRequest extends FormRequest
     {
         return [
             'year.digits'=>App::isLocale('en') ? 'Year Not more than 4 Digits':'يجب الاتزيدالسنة عن 4اراقام ',
-            'year.required'=>App::isLocale('en') ? 'Insert The Year':'ادخل السنة',
-            'circut_no.required'=>App::isLocale('en') ? 'Insert the circle Number':'ادخل رقم الدائرة',
-            'court_id.required'=>App::isLocale('en') ? 'Choose the court':'ادخل اسم المحكمة',
+            'year.required'=>App::isLocale('en') ? ' Year is required':'يجب إدخال السنة',
+            'circut_no.required'=>App::isLocale('en') ? 'Circle NO. is required':'يجب إدخال رقم الدائرة',
+            'court_id.required'=>App::isLocale('en') ? 'Choose the court':'يجب اختيار المحكمة',
 
         ];
     }

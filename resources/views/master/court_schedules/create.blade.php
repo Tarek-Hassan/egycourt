@@ -28,14 +28,9 @@
                                 <input  class="form-control"   value="{{Auth::user()->full_name}}" disabled>
                             </div>
 
-                            <div class="form-group col-md-4">
-                                <label >{{trans('court_schedule.court_id')}}</label>
-                                <input  class="form-control"   value="{{App::isLocale('en') ? Auth::user()->court->name_en : Auth::user()->court->name_ar}}" disabled>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label >{{trans('court_schedule.circut_id')}}</label>
-                                <input  class="form-control"   value="{{Auth::user()->circut->year}}/{{Auth::user()->circut->circut_no}}" disabled>
-                            </div>
+                            @include('master.court_schedules.create_header_partials')
+
+                          
                         </div>
 
                         <div class="row">
@@ -114,77 +109,4 @@
     var deposit_date = flatpickr(document.getElementById('case_date'));
 
 </script>
-
-    <script>
-
-        $(".row").on('change', '.get_court', function () {
-
-            let gov_id = $("#gov_id").val();
-            let court_degree_id = $("#court_degree_id").val();
-            let court =$("#court_id");
-
-            $.ajax({
-
-                url: '/master/court_gov_courtdegree',
-                method: "GET",
-                data: {
-                    gov:gov_id,
-                    court_degree:court_degree_id,
-                }
-            }).done(function (response) {
-                court.empty();
-                if (response.length > 0) {
-                    
-                    court.attr('disabled', false);
-                    $.each(response, function (key, value) {
-                        court.append('<option value=' + value.id + '> ' + value
-                            .name + '</option>');
-                    });
-
-                }else{
-                    court.attr('disabled', true);
-                }
-
-                court.selectpicker('refresh');
-              
-            }).fail(function () {
-
-                court.attr('disabled', true);
-
-            });
-
-        });
-
-        $(".row").on('change', '#court_id', function () {
-
-            let court_id = $("#court_id").val();
-            let circut =$("#circut_id");
-
-            $.ajax({
-                url: '/master/circut_court',
-                method: "GET",
-                data: {
-                    court:court_id,
-                }
-            }).done(function (response) {
-              
-                circut.empty();
-                if (response.length > 0) {
-                  
-                    circut.attr('disabled', false);
-                    $.each(response, function (key, value) {
-                        circut.append('<option value=' + value.id + '> ' + value.year +'/'+value.circut_no +'</option>');
-                    });
-                }else{
-                    circut.attr('disabled', true);
-                }
-                circut.selectpicker('refresh');
-            }).fail(function () {
-                circut.attr('disabled', true);
-            });
-
-        });
-
-    </script>
-
 @endpush

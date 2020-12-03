@@ -36,6 +36,8 @@ class CourtScheduleStoreRequest extends FormRequest
             'case_date'=>'required',
             'role_no'=>'required',
             'court_speciality_id'=>'required',
+            'court_id'=>'required',
+            'circut_id'=>'required',
         ];
         
     }
@@ -44,20 +46,20 @@ class CourtScheduleStoreRequest extends FormRequest
         return [
             
             'schedule_details.1.case_desc.required'=>App::isLocale('en') ? 'Case Desc. is required':'يجب إدخال ملخص القضية',
-           
             'schedule_details.1.case_no.required'=>App::isLocale('en') ? 'Case NO. is required':'يجب إدخال رقم القضية',
-            
             'schedule_details.1.case_year.digits'=>App::isLocale('en') ? 'Year Not more than 4 Digits':'يجب الاتزيدالسنة عن 4اراقام ',
-            
-            'schedule_details.1.case_year.required'=>App::isLocale('en') ? 'Insert The Year':'ادخل السنة',
+            'schedule_details.1.case_year.required'=>App::isLocale('en') ? ' Year is required':'يجب إدخال السنة',
 
             'schedule_details.*.case_desc.required'=>App::isLocale('en') ? 'Case Desc. is required':'يجب إدخال ملخص القضية',
             'schedule_details.*.case_no.required'=>App::isLocale('en') ? 'Case NO. is required':'يجب إدخال رقم القضية',
             'schedule_details.*.case_year.digits'=>App::isLocale('en') ? 'Year Not more than 4 Digits':'يجب الاتزيدالسنة عن 4اراقام ',
-            'schedule_details.*.case_year.required'=>App::isLocale('en') ? 'Insert The Year':'ادخل السنة',
+            'schedule_details.*.case_year.required'=>App::isLocale('en') ?  ' Year  is required':'يجب إدخال السنة',
+
             'case_date.required'=>App::isLocale('en') ? 'Case Date is required':'يجب إدخال تاريخ القضية',
             'role_no.required'=>App::isLocale('en') ? 'Role NO. is required':'يجب إدخال رقم الرول',
             'court_speciality_id.required'=>App::isLocale('en') ? 'Court Speciality is required':'يجب اختيار تخصص المحكمة',
+            'court_id.required'=>App::isLocale('en') ? 'Court is required':'يجب اختيار  المحكمة',
+            'circut_id.required'=>App::isLocale('en') ? 'Circut is required':'يجب اختيار الدائرة',
 
         ];
     }

@@ -16,7 +16,7 @@ class CourtScheduleHeader extends Model implements PermissionSeederContract
 
     protected $table="court_schedule_headers";
 
-    protected $fillable=['role_no','case_date','court_speciality_id','created_by','updated_by'];
+    protected $fillable=['role_no','case_date','court_speciality_id','created_by','updated_by','court_id','circut_id'];
 
     public function courtSpecialist(){
         return $this->belongsTo(CourtSpecialist::class,'court_speciality_id');

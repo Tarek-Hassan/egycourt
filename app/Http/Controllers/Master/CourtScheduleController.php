@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Models\Master\CourtScheduleDetail;
 use App\Models\Master\CourtScheduleHeader;
 use App\Models\Master\CircutCourtSpeciality;
+use App\Models\Master\Court;
 
 use App\Models\Master\CourtSpecialist;
 
@@ -48,11 +49,12 @@ class CourtScheduleController extends Controller
         $court_specialist_arr=Auth::user()->court->circutCourtSpecialities
                                 ->where('circut_id',Auth::user()->circut->id)
                                 ->pluck('court_specialist_id');
-
+        $courts=Court::all();
         $court_specialists=CourtSpecialist::whereIn('id',$court_specialist_arr)->distinct()->get();
 
         return view('master.court_schedules.create',[
             'court_specialists'=>$court_specialists,  
+            'courts'=>$courts,  
         ]);
       
     }
@@ -66,7 +68,7 @@ class CourtScheduleController extends Controller
     public function store(CourtScheduleStoreRequest $request)
     // public function store(Request $request)
     {
-       
+        dd($request->all(););
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
 
         $request['created_by']=Auth::user()->id;
@@ -120,6 +122,7 @@ class CourtScheduleController extends Controller
         $court_specialists=CourtSpecialist::whereIn('id',$court_specialist_arr)->distinct()->get();
 
         $courtScheduleHeader=CourtScheduleHeader::find($id);
+        $courts=Court::all();
 
         $courtScheduleDetails=CourtScheduleDetail::where('court_schedule_header_id',$id)->get();
 
@@ -128,6 +131,7 @@ class CourtScheduleController extends Controller
             'item'=>$courtScheduleHeader,
             'courtScheduleDetails'=>$courtScheduleDetails,
             'court_specialists'=>$court_specialists,
+            'courts'=>$courts,
 
         ]);
         //

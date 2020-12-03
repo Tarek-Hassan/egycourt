@@ -5,6 +5,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
+
+
 class MenuSeeder extends Seeder
 {
     /**
