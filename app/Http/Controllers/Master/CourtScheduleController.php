@@ -26,9 +26,9 @@ class CourtScheduleController extends Controller
      */
     public function index()
     {
-
         
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
+        
         $court_schedule_headers=CourtScheduleHeader::where('case_date','>=',(today())->format('Y-m-d'))
         ->with(['courtSpecialist','user','courtScheduleDetails'])
         ->paginate(30);
@@ -46,12 +46,19 @@ class CourtScheduleController extends Controller
     public function create()
     {
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
-
-        $court_specialist_arr=Auth::user()->court->circutCourtSpecialities
+        if(Auth::user()->is_super_admin){
+            $court_specialists=CourtSpecialist::all();
+        }
+        else{
+            $court_specialist_arr=Auth::user()->court->circutCourtSpecialities
                                 ->where('circut_id',Auth::user()->circut->id)
                                 ->pluck('court_specialist_id');
+
+            $court_specialists=CourtSpecialist::whereIn('id',$court_specialist_arr)->distinct()->get();
+
+        }
+        
         $courts=Court::all();
-        $court_specialists=CourtSpecialist::whereIn('id',$court_specialist_arr)->distinct()->get();
 
         return view('master.court_schedules.create',[
             'court_specialists'=>$court_specialists,  

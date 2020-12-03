@@ -221,35 +221,55 @@
 
 @push('scripts')
 <script src="{{ asset('plugins/flatpickr/flatpickr.js') }}"></script>
-<script>
-    var deposit_date = flatpickr(document.getElementById('case_date'));
-</script>
+    <script>
+        var deposit_date = flatpickr(document.getElementById('case_date'));
+    </script>
 
-<script>
-    $(".row").on('click', '.remove_court_schedule_detail:first', function () {
+    <script>
+        $(".row").on('click', '.remove_court_schedule_detail:first', function () {
 
-        $('#delete_court_schedule_detail').modal('show');
-        let court_schedule_detail_id=$(this).first().attr('id');
-        let data= this;
+            $('#delete_court_schedule_detail').modal('show');
+            let court_schedule_detail_id=$(this).first().attr('id');
+            let data= this;
 
-        $("#delete_court_schedule_detail").on("click", ".btn_court_schedule_detail_delete", function () {
+            $("#delete_court_schedule_detail").on("click", ".btn_court_schedule_detail_delete", function () {
 
-            $.ajax({
+                $.ajax({
 
-                url: '/master/court_schedules/'+court_schedule_detail_id,
-                type: "DELETE",
-                data: {
-                    _token: '{!! csrf_token() !!}',
-                },
+                    url: '/master/court_schedules/'+court_schedule_detail_id,
+                    type: "DELETE",
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                    },
 
-            }).done(function (response) {
-                $(data).parents().get(2).remove();
-                $('#delete_court_schedule_detail').modal('hide');
-            }).fail(function () {
-            
+                }).done(function (response) {
+                    $(data).parents().get(2).remove();
+                    $('#delete_court_schedule_detail').modal('hide');
+                }).fail(function () {
+                
+                });
             });
-        });
 
-    });
-</script>
+        });
+    </script>
+    {{-- <script>
+        function moveUp(item) {
+            console.log("moveUp"+this);
+            var prev = item.prev();
+            if (prev.length == 0) return;
+            console.log(prev);
+            // prev.css('z-index', 999).css('position', 'relative').animate({
+            //     top: item.height()
+            // }, 250);
+            // item.css('z-index', 1000).css('position', 'relative').animate({
+            //     top: '-' + prev.height()
+            // }, 300, function () {
+            //     prev.css('z-index', '').css('top', '').css('position', '');
+            //     item.css('z-index', '').css('top', '').css('position', '');
+            //     item.insertBefore(prev);
+    
+            //     sendOrderToServer();
+            // });
+        }
+    </script> --}}
 @endpush

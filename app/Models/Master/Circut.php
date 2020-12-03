@@ -3,6 +3,7 @@
 namespace App\Models\Master;
 use App\Models\Master\Court;
 use App\Models\Master\CircutCourtSpeciality;
+use App\Models\Master\CourtScheduleHeader;
 
 
 use Bitwise\PermissionSeeder\PermissionSeederContract;
@@ -24,5 +25,8 @@ class Circut extends Model  implements PermissionSeederContract
     
     public function circutCourtSpecialities(){
         return $this->hasMany(CircutCourtSpeciality::class,'circut_id');
+    }
+    public function courtScheduleHeaders(){
+        return $this->hasMany(CourtScheduleHeader::class,'circut_id');
     }
 }

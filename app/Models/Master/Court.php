@@ -4,6 +4,7 @@ namespace App\Models\Master;
 use App\Models\Master\Government;
 use App\Models\Master\CourtDegree;
 use App\Models\Master\CircutCourtSpeciality;
+use App\Models\Master\CourtScheduleHeader;
 
 use Bitwise\PermissionSeeder\PermissionSeederContract;
 use Bitwise\PermissionSeeder\Traits\PermissionSeederTrait;
@@ -28,6 +29,9 @@ class Court extends Model implements PermissionSeederContract
 
     public function circutCourtSpecialities(){
         return $this->hasMany(CircutCourtSpeciality::class,'court_id');
+    }
+    public function courtScheduleHeaders(){
+        return $this->hasMany(CourtScheduleHeader::class,'court_id');
     }
 
 }

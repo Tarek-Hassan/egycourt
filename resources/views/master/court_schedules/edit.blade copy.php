@@ -18,9 +18,7 @@
                     <form id="createForm" action="{{route('court_schedules.update',$item->id)}}" method="POST">
                         @csrf
                         @method('put')
-
-
-    
+                        
                         <div class="row">
 
                             <div class="form-group col-md-4">
@@ -75,32 +73,33 @@
 
                         </div>
 
-                        <hr>
 
-                        <div class="row  justify-content-center">
-                            <div class="col-md-2">
-                                <h3><b>{{ trans('court_schedule.order') }}</b></h3>
-                            </div>
-        
-                            <div class="col-md-3">
-                                <h3><b>{{ trans('court_schedule.case_year') }}</b></h3>
-                            </div>
-        
-                            <div class="col-md-3">
-                                <h3><b>{{ trans('court_schedule.case_no') }}</b></h3>
-                            </div>
-        
-                            <div class="col-md-4">
-                                <h3><b>{{ trans('court_schedule.case_desc') }}</b></h3>
-                            </div>
-        
-                        </div>
-
-                        <hr>
                       
 
                         <div class="justify-content-center">
                             @if (count($courtScheduleDetails)>0)
+                                <hr>
+
+                                <div class="row  justify-content-center">
+                                    <div class="col-md-2">
+                                        <h3><b>{{ trans('court_schedule.order') }}</b></h3>
+                                    </div>
+                
+                                    <div class="col-md-3">
+                                        <h3><b>{{ trans('court_schedule.case_year') }}</b></h3>
+                                    </div>
+                
+                                    <div class="col-md-3">
+                                        <h3><b>{{ trans('court_schedule.case_no') }}</b></h3>
+                                    </div>
+                
+                                    <div class="col-md-4">
+                                        <h3><b>{{ trans('court_schedule.case_desc') }}</b></h3>
+                                    </div>
+                
+                                </div>
+        
+                                <hr>
                                 @foreach ($courtScheduleDetails as $courtScheduleDetail)
                                     <div class="row mb-1 ">
 
@@ -112,7 +111,7 @@
 
                                         <div class="form-group col-md-3">
                                             <input type="number" class="form-control case_year"  name="schedule_details_update[{{$courtScheduleDetail->id}}][case_year]" 
-                                        placeholder="{{ trans('court_schedule.case_year') }}" value="{{$courtScheduleDetail->case_year}}"
+                                                placeholder="{{ trans('court_schedule.case_year') }}" value="{{$courtScheduleDetail->case_year}}"
                                                 autocomplete="disabled" autofocus>
 
                                             @if (array_key_exists("schedule_details_update.$courtScheduleDetail->id.case_year",$errors->getMessages()))
@@ -140,7 +139,7 @@
 
                                         </div>
                 
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-2">
                                             <input type="text" class="form-control case_desc"  name="schedule_details_update[{{$courtScheduleDetail->id}}][case_desc]" 
                                                 placeholder="{{ trans('court_schedule.case_desc') }}" value="{{$courtScheduleDetail->case_desc}}"
                                                 autocomplete="disabled" autofocus>
@@ -155,6 +154,16 @@
 
                                         </div>
 
+                                        <div class="form-group col-md-1">
+                                            <i class="fas fa-arrow-up  up fa-lg mt-3"></i>
+                                            <i class="fas fa-arrow-down  down fa-lg mt-3"></i>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group mb-0">
+                                                    <i id={{$courtScheduleDetail->id}} class='fas fa-times-circle fa-lg text-danger remove_court_schedule_detail mt-3' ></i>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 @endforeach
                             @else
@@ -164,6 +173,10 @@
                             @endif
                         </div>
 
+                                                {{-- start::partial form --}}
+                                                @include('master.court_schedules.add_details')
+                                                {{-- End::partial form --}}
+
                         
                         <div class="row">
                             <div class="col-md-12 text-center">
@@ -172,12 +185,34 @@
                             </div>
                        </div>
 
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- alret form to confirm delete_court_schedule_detail  -->
+    <div class="modal model-danger fade" id="delete_court_schedule_detail" tabindex="1" role="dialog" aria-labelledby="myModalLabel_hearing">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content confirmModal">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel_hearing">{{ trans('forms.del_conf') }}</h4>
+                </div>
+                           
+                <div class="modal-body">
+                    <div class="box-body">
+                        <p class="text-center">{{ trans('forms.del_message') }}</p>
+                    </div>
+                                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info pull-left" data-dismiss="modal">{{ trans('forms.cancel_btn') }}</button>
+                    <button type="button"  class="btn btn-danger btn_court_schedule_detail_delete">{{ trans('forms.delelet_btn') }}</button>
+                </div>
+                                
+            </div>
+        </div>
+    </div>
+                <!--  -->
 </div>
 @endsection
 @push('styles')
@@ -188,5 +223,33 @@
 <script src="{{ asset('plugins/flatpickr/flatpickr.js') }}"></script>
 <script>
     var deposit_date = flatpickr(document.getElementById('case_date'));
+</script>
+
+<script>
+    $(".row").on('click', '.remove_court_schedule_detail:first', function () {
+
+        $('#delete_court_schedule_detail').modal('show');
+        let court_schedule_detail_id=$(this).first().attr('id');
+        let data= this;
+
+        $("#delete_court_schedule_detail").on("click", ".btn_court_schedule_detail_delete", function () {
+
+            $.ajax({
+
+                url: '/master/court_schedules/'+court_schedule_detail_id,
+                type: "DELETE",
+                data: {
+                    _token: '{!! csrf_token() !!}',
+                },
+
+            }).done(function (response) {
+                $(data).parents().get(2).remove();
+                $('#delete_court_schedule_detail').modal('hide');
+            }).fail(function () {
+            
+            });
+        });
+
+    });
 </script>
 @endpush

@@ -40,14 +40,14 @@
                             <tbody>
 
                                 @forelse($items as $item)
-                             
+                         
                                     <tr>
                                         <td>{{ App\Helpers\Utils::rowNumber($items,$loop) }}</td>
                                         <td>{{ $item->case_date }}</td>
-                                        <td>{{App::isLocale('en') ? $item->user->court->government->name_en??$item->user->court->government->name_ar : $item->user->court->government->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->user->court->name_en??$item->user->court->name_ar: $item->user->court->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->court->government->name_en??$item->court->government->name_ar : $item->court->government->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->court->name_en??$item->court->name_ar: $item->court->name_ar}}</td>
                                         <td>{{App::isLocale('en') ? $item->courtSpecialist->name_en?? $item->courtSpecialist->name_ar : $item->courtSpecialist->name_ar}}</td>
-                                        <td>{{$item->user->circut->year}}/{{$item->user->circut->circut_no}}</td>
+                                        <td>{{$item->circut->year}}/{{$item->circut->circut_no}}</td>
                                         <td>{{ $item->role_no }}</td>
 
                                         <td class="text-center">

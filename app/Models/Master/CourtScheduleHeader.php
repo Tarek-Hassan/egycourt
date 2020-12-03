@@ -5,6 +5,8 @@ namespace App\Models\Master;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Master\CourtScheduleDetail;
 use App\Models\Master\CourtSpecialist;
+use App\Models\Master\Court;
+use App\Models\Master\Circut;
 use App\User;
 
 use Bitwise\PermissionSeeder\PermissionSeederContract;
@@ -23,6 +25,12 @@ class CourtScheduleHeader extends Model implements PermissionSeederContract
     }
     public function user(){
         return $this->belongsTo(User::class,'created_by');
+    }
+    public function court(){
+        return $this->belongsTo(Court::class,'court_id');
+    }
+    public function circut(){
+        return $this->belongsTo(Circut::class,'circut_id');
     }
     public function courtScheduleDetails(){
         return $this->hasMany(CourtScheduleDetail::class,'court_schedule_header_id');
