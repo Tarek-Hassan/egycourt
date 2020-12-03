@@ -41,7 +41,7 @@
                                     <tr>
                                         <td>{{ App\Helpers\Utils::rowNumber($items,$loop) }}</td>
                                         
-                                        <td>{{App::isLocale('en') ? $item->court->name_en : $item->court->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->court->name_en??$item->court->name_ar : $item->court->name_ar}}</td>
                                         <td>{{ $item->circut_no }}</td>
                                         <td>{{ $item->year }}</td>
 

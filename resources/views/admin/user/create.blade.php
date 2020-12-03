@@ -105,7 +105,7 @@
                     <label for="role">{{trans('circut.court_id')}}</label>
                     <select class="selectpicker show-tick form-control" id="court_id" data-live-search="true" name="court_id" title="{{trans('forms.select')}}">
                         @foreach ($courts as $item)
-                        <option value="{{$item->id}}" {{$item->id == old('court_id') ? 'selected' :''}}>{{App::isLocale('en') ? $item->name_en :$item->name_ar}}</option>
+                        <option value="{{$item->id}}" {{$item->id == old('court_id') ? 'selected' :''}}>{{App::isLocale('en') ? $item->name_en??$item->name_ar :$item->name_ar}}</option>
                         @endforeach
                     </select>
                     @error('court_id')

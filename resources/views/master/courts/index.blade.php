@@ -40,9 +40,9 @@
                                 @forelse($items as $item)
                                     <tr>
                                         <td>{{ App\Helpers\Utils::rowNumber($items,$loop) }}</td>
-                                        <td>{{App::isLocale('en') ? $item->name_en : $item->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->government->name_en : $item->government->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->courtDegree->name_en : $item->courtDegree->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->name_en??$item->name_ar : $item->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->government->name_en??$item->government->name_ar : $item->government->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->courtDegree->name_en??$item->courtDegree->name_ar : $item->courtDegree->name_ar}}</td>
 
                                         @if($item->is_active)
                                             <td><i class='fa fa-check' style='color:green'></i></td>

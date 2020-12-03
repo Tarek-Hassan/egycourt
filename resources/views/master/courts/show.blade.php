@@ -33,15 +33,13 @@
 
                         <div class="form-group col-md-6">
                             <label for="mainGovInput">{{trans('court.government')}} *</label>
-                            <input type="text" class="form-control" id="nameInput"  value="{{App::isLocale('en') ? $item->government->name_en :$item->government->name_ar}}" disabled>
+                            <input type="text" class="form-control" id="nameInput"  value="{{App::isLocale('en') ? $item->government->name_en??$item->government->name_ar :$item->government->name_ar}}" disabled>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="mainGovInput">{{trans('court.court_degree_id')}} *</label>
-                            <input type="text" class="form-control" id="nameInput"  value="{{App::isLocale('en') ? $item->courtDegree->name_en :$item->courtDegree->name_ar}}" disabled>
+                            <input type="text" class="form-control" id="nameInput"  value="{{App::isLocale('en') ? $item->courtDegree->name_en??$item->courtDegree->name_ar :$item->courtDegree->name_ar}}" disabled>
                         </div>
-
-                      
 
                         <div class="form-group col-md-6">
                             <label for="mainActiveInput">{{trans('general.is_active')}} </label>

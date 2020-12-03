@@ -44,9 +44,9 @@
                                     <tr>
                                         <td>{{ App\Helpers\Utils::rowNumber($items,$loop) }}</td>
                                         <td>{{ $item->case_date }}</td>
-                                        <td>{{App::isLocale('en') ? $item->user->court->government->name_en : $item->user->court->government->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->user->court->name_en : $item->user->court->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->courtSpecialist->name_en : $item->courtSpecialist->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->user->court->government->name_en??$item->user->court->government->name_ar : $item->user->court->government->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->user->court->name_en??$item->user->court->name_ar: $item->user->court->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->courtSpecialist->name_en?? $item->courtSpecialist->name_ar : $item->courtSpecialist->name_ar}}</td>
                                         <td>{{$item->user->circut->year}}/{{$item->user->circut->circut_no}}</td>
                                         <td>{{ $item->role_no }}</td>
 

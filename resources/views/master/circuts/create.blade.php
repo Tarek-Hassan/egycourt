@@ -50,7 +50,7 @@
                                 <label for="court_id_Input">{{trans('circut.court_id')}} *</label>
                                 <select class="selectpicker form-control" id="court_id_Input"  name="court_id" data-size="10" title="{{trans('forms.select')}}">
                                     @foreach ($courts as $court)    
-                                        <option value="{{$court->id}}"  > {{App::isLocale('en') ? $court->name_en :$court->name_ar}} </option>
+                                        <option value="{{$court->id}}"  > {{App::isLocale('en') ? $court->name_en??$court->name_ar :$court->name_ar}} </option>
                                     @endforeach
                                        
                                 </select>

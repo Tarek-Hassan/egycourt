@@ -47,7 +47,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label >{{trans('circut.court_id')}}</label>
-                        <input type="text" class="form-control"  value="{{App::isLocale('en') ? $user->court->name_en :$user->court->name_ar}} " disabled>
+                        <input type="text" class="form-control"  value="{{App::isLocale('en') ? $user->court->name_en??$user->court->name_ar :$user->court->name_ar}} " disabled>
                     </div>
                     <div class="form-group col-md-6">
                         <label >{{trans('circut_court_speciality.circut_id')}} </label>

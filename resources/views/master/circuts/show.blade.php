@@ -10,7 +10,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">{{trans('general.master_data')}}</a></li>
                             <li class="breadcrumb-item"><a href="{{route('circuts.index')}}">{{trans('circut.circuts')}}</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);"> {{App::isLocale('en') ? $item->name_en :$item->name_ar}}</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">{{trans('forms.show')}} {{$item->year}}/{{$item->circut_no}}</a></li>
                             <li class="breadcrumb-item"></li>
                         </ol>
                     </nav>
@@ -34,7 +34,7 @@
 
                         <div class="form-group col-md-6">
                             <label for="court_id_Input">{{trans('circut.court_id')}} *</label>
-                            <input type="text" class="form-control" id="court_id_Input"  value="{{App::isLocale('en') ? $item->court->name_en :$item->court->name_ar}}" disabled>
+                            <input type="text" class="form-control" id="court_id_Input"  value="{{App::isLocale('en') ? $item->court->name_en??$item->court->name_ar :$item->court->name_ar}}" disabled>
                         </div>
 
 

@@ -3,7 +3,7 @@
         <label for="court_id">{{trans('circut_court_speciality.court_id')}} *</label>
         <select class="selectpicker form-control " id="court_id"  name="court_id" data-size="10" title="{{trans('forms.select')}}" >
             @foreach ($courts as $court)    
-                <option value="{{$court->id}}"  > {{App::isLocale('en') ? $court->name_en :$court->name_ar}} </option>
+                <option value="{{$court->id}}"  > {{App::isLocale('en') ? $court->name_en??$court->name_ar :$court->name_ar}} </option>
             @endforeach
         </select>
         @error('court_id')
@@ -28,7 +28,7 @@
 @else
     <div class="form-group col-md-4">
         <label >{{trans('court_schedule.court_id')}}</label>
-        <input  class="form-control"    value="{{App::isLocale('en') ? Auth::user()->court->name_en : Auth::user()->court->name_ar}}" disabled>
+        <input  class="form-control"    value="{{App::isLocale('en') ? Auth::user()->court->name_en??Auth::user()->court->name_ar : Auth::user()->court->name_ar}}" disabled>
         <input  class="form-control"   name="court_id" value="{{Auth::user()->court->id}}" hidden>
     </div>
     <div class="form-group col-md-4">

@@ -9,7 +9,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">{{trans('general.master_data')}}</a></li>
                             <li class="breadcrumb-item"><a href="{{route('circuts.index')}}">{{trans('circut.circuts')}}</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);"> {{trans('forms.edit')}}</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);"> {{trans('forms.edit')}}{{$item->year}}/{{$item->circut_no}}</a></li>
                             <li class="breadcrumb-item"></li>
                         </ol>
                     </nav>
@@ -50,7 +50,7 @@
                                 <label for="court_id_Input">{{trans('court.court_id')}} *</label>
                                 <select class="selectpicker form-control" id="court_id_Input"  name="court_id" data-size="10" title="{{trans('forms.select')}}">
                                     @foreach ($courts as $court)    
-                                        <option value="{{$court->id}}"  {{$item->court_id == $court->id ? 'selected':''}}> {{App::isLocale('en') ? $court->name_en :$court->name_ar}} </option>
+                                        <option value="{{$court->id}}"  {{$item->court_id == $court->id ? 'selected':''}}> {{App::isLocale('en') ? $court->name_en??$court->name_ar :$court->name_ar}} </option>
                                     @endforeach
                                        
                                 </select>

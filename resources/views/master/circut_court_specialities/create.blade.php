@@ -27,7 +27,7 @@
                                 <label for="gov_id">{{trans('circut_court_speciality.gov_id')}} *</label>
                                 <select class="selectpicker form-control get_court" id="gov_id"  name="gov_id" data-size="10" title="{{trans('forms.select')}}">
                                     @foreach ($governments as $government)    
-                                        <option value="{{$government->id}}"  > {{App::isLocale('en') ? $government->name_en :$government->name_ar}} </option>
+                                        <option value="{{$government->id}}"  > {{App::isLocale('en') ? $government->name_en??$government->name_ar :$government->name_ar}} </option>
                                     @endforeach
                                        
                                 </select>
@@ -42,7 +42,7 @@
                                 <label for="court_degree_id">{{trans('circut_court_speciality.court_degree_id')}} *</label>
                                 <select class="selectpicker form-control get_court" id="court_degree_id"  name="court_degree_id" data-size="10" title="{{trans('forms.select')}}">
                                     @foreach ($court_degrees as $court_degree)    
-                                        <option value="{{$court_degree->id}}"  > {{App::isLocale('en') ? $court_degree->name_en :$court_degree->name_ar}} </option>
+                                        <option value="{{$court_degree->id}}"  > {{App::isLocale('en') ? $court_degree->name_en??$court_degree->name_ar:$court_degree->name_ar}} </option>
                                     @endforeach
                                 </select>
                                 @error('court_degree_id')
@@ -85,7 +85,7 @@
                                 <label for="court_specialist_id">{{trans('circut_court_speciality.court_specialist_id')}} *</label>
                                 <select class="selectpicker form-control" id="court_specialist_id"  name="court_specialist_id" data-size="10" title="{{trans('forms.select')}}">
                                     @foreach ($court_specialisties as $court_specialisty)    
-                                        <option value="{{$court_specialisty->id}}"  > {{App::isLocale('en') ? $court_specialisty->name_en : $court_specialisty->name_ar}} </option>
+                                        <option value="{{$court_specialisty->id}}"  > {{App::isLocale('en') ? $court_specialisty->name_en??$court_specialisty->name_ar : $court_specialisty->name_ar}} </option>
                                     @endforeach
                                        
                                 </select>

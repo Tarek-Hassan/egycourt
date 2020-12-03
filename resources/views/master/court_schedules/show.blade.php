@@ -27,7 +27,7 @@
 
                             <div class="form-group col-md-4">
                                 <label >{{trans('court_schedule.court_id')}}</label>
-                                <input  class="form-control"   value="{{App::isLocale('en') ? Auth::user()->court->name_en : Auth::user()->court->name_ar}}" disabled>
+                                <input  class="form-control"   value="{{App::isLocale('en') ? Auth::user()->court->name_en??Auth::user()->court->name_ar : Auth::user()->court->name_ar}}" disabled>
                             </div>
                             <div class="form-group col-md-4">
                                 <label >{{trans('court_schedule.circut_id')}}</label>
@@ -39,7 +39,7 @@
 
                             <div class="form-group col-md-4">
                                 <label for="court_speciality_id">{{trans('court_schedule.court_speciality_id')}} *</label>
-                                <input  value="{{App::isLocale('en') ? $item->courtSpecialist->name_en :$item->courtSpecialist->name_ar}}" class="form-control form-control-sm flatpickr flatpickr-input active" type="text" disabled>
+                                <input  value="{{App::isLocale('en') ? $item->courtSpecialist->name_en??$item->courtSpecialist->name_ar :$item->courtSpecialist->name_ar}}" class="form-control form-control-sm flatpickr flatpickr-input active" type="text" disabled>
                             </div>
 
                             <div class="form-group col-md-4">

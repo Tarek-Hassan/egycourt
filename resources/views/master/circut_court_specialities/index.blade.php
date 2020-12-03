@@ -43,11 +43,11 @@
                                     <tr>
                                         <td>{{ App\Helpers\Utils::rowNumber($items,$loop) }}</td>
                                         
-                                        <td>{{App::isLocale('en') ? $item->court->government->name_en : $item->court->government->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->court->name_en : $item->court->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->court->courtDegree->name_en : $item->court->courtDegree->name_ar}}</td>
-                                        <td>{{App::isLocale('en') ? $item->courtSpecialist->name_en : $item->courtSpecialist->name_ar}}</td>
-                                        <td>{{ $item->circut_no }}</td>
+                                        <td>{{App::isLocale('en') ? $item->court->government->name_en??$item->court->government->name_ar : $item->court->government->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->court->name_en??$item->court->name_ar : $item->court->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->court->courtDegree->name_en??$item->court->courtDegree->name_ar : $item->court->courtDegree->name_ar}}</td>
+                                        <td>{{App::isLocale('en') ? $item->courtSpecialist->name_en??$item->courtSpecialist->name_ar : $item->courtSpecialist->name_ar}}</td>
+                                        <td>{{$item->circut->year}}/{{$item->circut->circut_no}}</td>
 
                                         @if($item->is_active)
                                             <td><i class='fa fa-check' style='color:green'></i></td>

@@ -159,7 +159,7 @@ class CircutCourtSpecialityController extends Controller
             $lang=App::getLocale();
 
             return Court::Select(
-                        DB::raw(" id , name_$lang name"))
+                        DB::raw(" id , case when name_en is null then name_ar else name_$lang end  name"))
                 ->where([ 
                     ['gov_id',$gov_id],
                     ['court_degree_id',$court_degree_id]

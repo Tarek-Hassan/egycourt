@@ -50,7 +50,7 @@
                             <label for="mainGovInput">{{trans('court.government')}} *</label>
                             <select class="selectpicker form-control" id="mainGovInput"  name="gov_id" data-size="10" title="{{trans('forms.select')}}">
                                 @foreach ($governments as $government)    
-                                    <option value="{{$government->id}}"  {{$item->gov_id == $government->id ? 'selected':''}}> {{App::isLocale('en') ? $government->name_en :$government->name_ar}} </option>
+                                    <option value="{{$government->id}}"  {{$item->gov_id == $government->id ? 'selected':''}}> {{App::isLocale('en') ? $government->name_en??$government->name_ar :$government->name_ar}} </option>
                                 @endforeach
                                    
                             </select>
@@ -65,7 +65,7 @@
                             <label for="mainGovInput">{{trans('court.court_degree_id')}} *</label>
                             <select class="selectpicker form-control" id="mainGovInput"  name="court_degree_id" data-size="10" title="{{trans('forms.select')}}">
                                 @foreach ($court_degrees as $court_degree)    
-                                    <option value="{{$court_degree->id}}"  {{$item->court_degree_id == $court_degree->id ? 'selected':''}}> {{App::isLocale('en') ? $court_degree->name_en :$court_degree->name_ar}} </option>
+                                    <option value="{{$court_degree->id}}"  {{$item->court_degree_id == $court_degree->id ? 'selected':''}}> {{App::isLocale('en') ? $court_degree->name_en??$court_degree->name_ar :$court_degree->name_ar}} </option>
                                 @endforeach
                                    
                             </select>

@@ -23,17 +23,17 @@
 
                             <div class="form-group col-md-4">
                                 <label for="gov_id_Input">{{trans('circut_court_speciality.gov_id')}}</label>
-                                <input type="text" class="form-control" id="gov_id_Input"  value="{{App::isLocale('en') ? $item->court->government->name_en : $item->court->government->name_ar}}" disabled>
+                                <input type="text" class="form-control" id="gov_id_Input"  value="{{App::isLocale('en') ? $item->court->government->name_en??$item->court->government->name_ar : $item->court->government->name_ar}}" disabled>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="court_id_Input">{{trans('circut_court_speciality.court_id')}}</label>
-                                <input type="text" class="form-control" id="court_id_Input"  value="{{App::isLocale('en') ? $item->court->name_en : $item->court->name_ar}}" disabled>
+                                <input type="text" class="form-control" id="court_id_Input"  value="{{App::isLocale('en') ? $item->court->name_en??$item->court->name_ar : $item->court->name_ar}}" disabled>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="court_degree_id_Input">{{trans('circut_court_speciality.court_degree_id')}}</label>
-                                <input type="text" class="form-control" id="court_degree_id_Input"  value="{{App::isLocale('en') ? $item->court->courtDegree->name_en : $item->court->courtDegree->name_ar}}" disabled>
+                                <input type="text" class="form-control" id="court_degree_id_Input"  value="{{App::isLocale('en') ? $item->court->courtDegree->name_en??$item->court->courtDegree->name_ar : $item->court->courtDegree->name_ar}}" disabled>
                             </div>
 
                         </div>
@@ -42,7 +42,7 @@
 
                             <div class="form-group col-md-4">
                                 <label for="court_specialist_id_Input">{{trans('circut_court_speciality.court_specialist_id')}}</label>
-                                <input type="text" class="form-control" id="court_specialist_id_Input"  value="{{App::isLocale('en') ? $item->courtSpecialist->name_en : $item->courtSpecialist->name_ar}}" disabled>
+                                <input type="text" class="form-control" id="court_specialist_id_Input"  value="{{App::isLocale('en') ? $item->courtSpecialist->name_en??$item->courtSpecialist->name_ar : $item->courtSpecialist->name_ar}}" disabled>
                             </div>
 
                             <div class="form-group col-md-4">

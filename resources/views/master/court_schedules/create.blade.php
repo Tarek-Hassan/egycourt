@@ -40,7 +40,7 @@
                                 <select class="selectpicker form-control get_court" id="court_speciality_id"  name="court_speciality_id" data-size="10" title="{{trans('forms.select')}}">
 
                                     @foreach ($court_specialists as $court_specialist)    
-                                        <option value="{{$court_specialist->id}}" > {{App::isLocale('en') ? $court_specialist->name_en :$court_specialist->name_ar}} </option>
+                                        <option value="{{$court_specialist->id}}" > {{App::isLocale('en') ? $court_specialist->name_en??$court_specialist->name_ar :$court_specialist->name_ar}} </option>
                                     @endforeach
                                        
                                 </select>
