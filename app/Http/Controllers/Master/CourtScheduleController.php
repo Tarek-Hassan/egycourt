@@ -145,9 +145,11 @@ class CourtScheduleController extends Controller
      * @param  \App\CourtScheduleDetail  $courtScheduleDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(CourtScheduleUpdateRequest $request,$id)
+    public function update(Request $request,$id)
+    // public function update(CourtScheduleUpdateRequest $request,$id)
     {
-       
+        
+     
     
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
 
@@ -163,6 +165,14 @@ class CourtScheduleController extends Controller
 
             }
         }
+
+        if($request->schedule_details){
+            foreach ($request->schedule_details as $value) {
+                $value['court_schedule_header_id']=$id;
+                $value['created_by']=Auth::user()->id;
+                CourtScheduleDetail::create($value);
+            }
+        }
         
         return redirect()->route('court_schedules.index')->with('success',trans('general.created'));
     }
@@ -173,8 +183,10 @@ class CourtScheduleController extends Controller
      * @param  \App\CourtScheduleDetail  $courtScheduleDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourtScheduleDetail $courtScheduleDetail)
+
+    public function destroy($id)
     {
-        //
+        $court_schedule_detail=CourtScheduleDetail::find($id);
+        return $court_schedule_detail->delete();
     }
 }

@@ -12,9 +12,9 @@
                     <div class="col-md-5">
                         <h3><b>{{ trans('court_schedule.case_desc') }}</b></h3>
                     </div>
-                    <div class="col-md-2">
+                    {{-- <div class="col-md-2">
                         <h3><b>{{ trans('court_schedule.order') }}</b></h3>
-                    </div>
+                    </div> --}}
                     <div class="col-md-1">
                         <h3></h3>
                     </div>
@@ -60,8 +60,6 @@
 
                         <div class="col-md-2">
                             <input type="hidden" class="order" name="schedule_details[1][order]" value="1"/>
-                            <i class="fas fa-arrow-up  fa-lg"></i>
-                            <i class="fas fa-arrow-down  fa-lg"></i>
                         </div>
 
                         <div class="col-md-1">
