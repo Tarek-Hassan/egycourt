@@ -1,7 +1,7 @@
 <?php
 
 return array (
-  'circut_court_speciality' => '',
+  'circut_court_speciality' => 'Circut Court Specialities',
   'circut_id' => 'الدواير',
   'circut_no' => 'رقم الدائرة',
   'court_degree_id' => 'درجة المحكمة',

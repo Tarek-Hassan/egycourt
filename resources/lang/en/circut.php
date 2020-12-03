@@ -1,8 +1,8 @@
 <?php
 
 return array (
-  'circut_no' => 'Circut NO.',
-  'circuts' => 'Circut',
+  'circut_no' => 'Circuit NO.',
+  'circuts' => 'Circuit',
   'court_id' => 'Court',
   'year' => 'Year',
 );

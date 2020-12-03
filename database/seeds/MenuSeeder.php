@@ -95,50 +95,51 @@ class MenuSeeder extends Seeder
     }
 
     protected function seedGeneralMenu($parentMenu,$order){
-        $subMenu = Menu::create([
-            'name'=>'General',
-            'parent_id'=>$parentMenu->id,
-            'icon_svg'=>'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
-            'class_name'=>null,
-            'permission_name'=>null,
-            'display_order'=>$order,
-            'route_name'=>null
-        ]);
-        $subOrder = 1;
+        // $subMenu = Menu::create([
+        //     'name'=>'General',
+        //     'parent_id'=>$parentMenu->id,
+        //     'icon_svg'=>'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>',
+        //     'class_name'=>null,
+        //     'permission_name'=>null,
+        //     'display_order'=>$order,
+        //     'route_name'=>null
+        // ]);
+       
         Menu::create([
-            'name'=>'Courts',
-            'parent_id'=>$subMenu->id,
+            'name'=>'courts',
+            'parent_id'=>$parentMenu->id,
             'icon_svg'=>null,
             'class_name'=>null,
             'permission_name'=>'Court-List',
-            'display_order'=>$subOrder++,
+            'display_order'=>$order,
             'route_name'=>'courts.index'
         ]);
+       
         Menu::create([
-            'name'=>'Circuts',
-            'parent_id'=>$subMenu->id,
+            'name'=>'circuts',
+            'parent_id'=>$parentMenu->id,
             'icon_svg'=>null,
             'class_name'=>null,
             'permission_name'=>'Circut-List',
-            'display_order'=>$subOrder++,
+            'display_order'=>$order++,
             'route_name'=>'circuts.index'
         ]);
         Menu::create([
-            'name'=>'CircutCourtSpecialities',
-            'parent_id'=>$subMenu->id,
+            'name'=>'circut_court_specialities',
+            'parent_id'=>$parentMenu->id,
             'icon_svg'=>null,
             'class_name'=>null,
             'permission_name'=>'CircutCourtSpeciality-List',
-            'display_order'=>$subOrder++,
+            'display_order'=>$order++,
             'route_name'=>'circut_court_specialities.index'
         ]);
         Menu::create([
-            'name'=>'Court Schedule',
-            'parent_id'=>$subMenu->id,
+            'name'=>'court_schedule',
+            'parent_id'=>$parentMenu->id,
             'icon_svg'=>null,
             'class_name'=>null,
             'permission_name'=>'CourtScheduleHeader-List',
-            'display_order'=>$subOrder++,
+            'display_order'=>$order++,
             'route_name'=>'court_schedules.index'
         ]);
 
