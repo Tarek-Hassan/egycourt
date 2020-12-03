@@ -68,7 +68,7 @@ class CourtScheduleController extends Controller
     public function store(CourtScheduleStoreRequest $request)
     // public function store(Request $request)
     {
-        dd($request->all(););
+        dd($request->all());
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
 
         $request['created_by']=Auth::user()->id;
