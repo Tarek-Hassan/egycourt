@@ -201,6 +201,9 @@
         })
     </script>
     <script>
+        $(function(){
+                $('.row #court_id').change();
+        })
         $(".row").on('change', '#court_id', function () {
 
             let court_id = $("#court_id").val();
