@@ -26,9 +26,10 @@ class CourtScheduleController extends Controller
      */
     public function index()
     {
+
         
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
-        $court_schedule_headers=CourtScheduleHeader::where('case_date','>',today())
+        $court_schedule_headers=CourtScheduleHeader::where('case_date','>=',(today())->format('Y-m-d'))
         ->with(['courtSpecialist','user','courtScheduleDetails'])
         ->paginate(30);
         
@@ -68,7 +69,7 @@ class CourtScheduleController extends Controller
     public function store(CourtScheduleStoreRequest $request)
     // public function store(Request $request)
     {
-        dd($request->all());
+        
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
 
         $request['created_by']=Auth::user()->id;
@@ -95,7 +96,7 @@ class CourtScheduleController extends Controller
         $this->authorize(__FUNCTION__,CourtScheduleHeader::class);
       
         $courtScheduleHeader=CourtScheduleHeader::find($id);
-        $courtScheduleDetails=CourtScheduleDetail::where('court_schedule_header_id',$id)->get();
+        $courtScheduleDetails=CourtScheduleDetail::where('court_schedule_header_id',$id)->orderBy('order')->get();
         return view('master.court_schedules.show',[
 
             'item'=>$courtScheduleHeader,
@@ -124,7 +125,7 @@ class CourtScheduleController extends Controller
         $courtScheduleHeader=CourtScheduleHeader::find($id);
         $courts=Court::all();
 
-        $courtScheduleDetails=CourtScheduleDetail::where('court_schedule_header_id',$id)->get();
+        $courtScheduleDetails=CourtScheduleDetail::where('court_schedule_header_id',$id)->orderBy('order')->get();
 
         return view('master.court_schedules.edit',[
 

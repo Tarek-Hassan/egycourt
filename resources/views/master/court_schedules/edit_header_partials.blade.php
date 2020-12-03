@@ -42,44 +42,17 @@
 @push('scripts')
 
     <script>
-            $(".row").on('change', '#court_id', function () {
 
-let court_id = $("#court_id").val();
-let circut =$("#circut_id");
-let old_circut_id = $(".old_circut_id").val();
-circut.empty();
-$.ajax({
-    url: '/master/circut_court',
-    method: "GET",
-    data: {
-        court:court_id,
-    }
-}).done(function (response) {
-
-    circut.empty();
-    if (response.length > 0) {
-
-        circut.attr('disabled', false);
-
-        $.each(response, function (key, value) {
-            
-            let select= ( old_circut_id == value.id ) ? "selected" : "" ;
-            circut.append('<option value=' + value.id +' '+select+'> ' + value.year +'/'+value.circut_no +'</option>');
-        });
-
-    }else{
-        circut.attr('disabled', true);
-    }
-    circut.selectpicker('refresh');
-}).fail(function () {
-    circut.attr('disabled', true);
-});
-
-});
+        $(function(){
+                $('.row #court_id').change();
+        })
+        
+        $(".row").on('change', '#court_id', function () {
 
             let court_id = $("#court_id").val();
             let circut =$("#circut_id");
-
+            let old_circut_id = $(".old_circut_id").val();
+            circut.empty();
             $.ajax({
                 url: '/master/circut_court',
                 method: "GET",
@@ -87,14 +60,18 @@ $.ajax({
                     court:court_id,
                 }
             }).done(function (response) {
-            
+
                 circut.empty();
                 if (response.length > 0) {
-                
+
                     circut.attr('disabled', false);
+
                     $.each(response, function (key, value) {
-                        circut.append('<option value=' + value.id + '> ' + value.year +'/'+value.circut_no +'</option>');
+                        
+                        let select= ( old_circut_id == value.id ) ? "selected" : "" ;
+                        circut.append('<option value=' + value.id +' '+select+'> ' + value.year +'/'+value.circut_no +'</option>');
                     });
+
                 }else{
                     circut.attr('disabled', true);
                 }
@@ -103,8 +80,7 @@ $.ajax({
                 circut.attr('disabled', true);
             });
 
-            });
-
-            </script>
+        });
+    </script>
 
 @endpush
